@@ -1,9 +1,9 @@
 import java.util.ArrayList;
 
 public class User {
-	private ArrayList <Currency>currencyRates;
-	private ArrayList <Wage>Income;  // user income sources that user can record or view or search by type or month 
-	private ArrayList <Expense>Spending; //user's expenses 
+	private ArrayList <Currency>currencyRates = new ArrayList<Currency>();
+	private ArrayList <Wage>Income = new ArrayList<Wage>();  // user income sources that user can record or view or search by type or month 
+	private ArrayList <Expense>Spending = new ArrayList<Expense>(); //user's expenses 
 	String username;
 	String pwd;
 	//current total income - total 
