@@ -2,10 +2,14 @@
 public class ExpenseCalculator implements Expenser{
 	User user;
 	
+	ExpenseCalculator(User user) {
+		this.user = user;
+	}
+	
 	@Override
 	public void addExpense(Expense Ex) {
 		// TODO Auto-generated method stub
-		
+		user.Spending.add(Ex);
 	}
 
 	@Override
