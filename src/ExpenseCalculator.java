@@ -1,11 +1,11 @@
 
-public class ExpenseCalculator implements Expenser{
+public class ExpenseCalculator implements Expenser {
 	User user;
-	
+
 	ExpenseCalculator(User user) {
 		this.user = user;
 	}
-	
+
 	@Override
 	public void addExpense(Expense Ex) {
 		// TODO Auto-generated method stub
@@ -15,43 +15,43 @@ public class ExpenseCalculator implements Expenser{
 	@Override
 	public void addMonthlyIncome(Wage W) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void PrintFullreport() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void PrintExpensereport() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void PrintIncomereport() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void PrintIncomereportbyTpe() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void PrintExpensebyType() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void exportReport(String reportTitle) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -81,7 +81,7 @@ public class ExpenseCalculator implements Expenser{
 	@Override
 	public void updateMonthlySavings() {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
+
 }
