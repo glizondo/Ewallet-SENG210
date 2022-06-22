@@ -26,14 +26,20 @@ public class EWalletApplication {
 	private JButton enter1Btn;
 	private JButton addExpBtn;
 	private JTextField sourceField;
+	private JTextField IncSourceField;
 	private JTextField amountField;
+	private JTextField IncAmountField;
 	private JTextField freqField;
 	private JLabel sourceLbl;
 	private JLabel amountLbl;
+	private JLabel IncSourceLbl;
 	private JLabel freqLbl;
 	private JButton enter2Btn;
+	private JButton incEnterBtn;
 	private JTextField textFieldCurrentBalance;
 	private JButton buttonConvertToDollars;
+	private JButton incomeBtn;
+	private JButton incReport;
 
 	/**
 	 * Launch the application.
@@ -161,6 +167,7 @@ public class EWalletApplication {
 				textFieldCurrentBalance.setVisible(true);
 				buttonConvertToEuros.setVisible(true);
 				buttonConvertToDollars.setVisible(true);
+				incomeBtn.setVisible(true);
 
 			}
 		});
@@ -174,6 +181,7 @@ public class EWalletApplication {
 		addExpBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				addExpBtn.setVisible(false);
+				incomeBtn.setVisible(false);
 				sourceField.setVisible(true);
 				amountField.setVisible(true);
 				freqField.setVisible(true);
@@ -245,11 +253,135 @@ public class EWalletApplication {
 						Integer.parseInt(freqField.getText()));
 				expenseCalc.addExpense(expense);
 				msgLbl.setText("");
-//				comment
+
 			}
 		});
 		enter2Btn.setBounds(335, 222, 89, 28);
 		frame.getContentPane().add(enter2Btn);
+		
+		////Feature 3 -- creating an income button 
+		
+		incomeBtn = new JButton("Add an Income");  //creating the income button
+		incomeBtn.setFont(new Font("Perpetua", Font.PLAIN, 11)); //setting font size and font for btn
+		incomeBtn.setVisible(false); //making not on stage to start
+		
+		incomeBtn.addActionListener(new ActionListener() { //when button clicked do...
+			public void actionPerformed(ActionEvent e) {
+				incomeBtn.setVisible(false); //make income btn not on stage
+				addExpBtn.setVisible(false);//make expense btn not on stage
+				
+				sourceField.setVisible(false); //not needed for income
+				amountField.setVisible(false); //not needed for income 
+				labelCurrentBalance.setVisible(false);//not needed for income
+				textFieldCurrentBalance.setVisible(false);//not needed for income
+				buttonConvertToEuros.setVisible(false);//not needed for income
+				buttonConvertToDollars.setVisible(false);//not needed for income	
+				freqField.setVisible(false); //not needed for income
+				freqLbl.setVisible(false); //not needed for income
+				sourceLbl.setVisible(false); //not needed for income
+				
+				
+				enter2Btn.setVisible(false); //enter button for expense not needed
+				IncSourceField.setVisible(true); //income source textfield on stage
+				IncSourceLbl.setVisible(true); //income source label on stage
+				amountLbl.setVisible(true); //amount label on stage
+				IncAmountField.setVisible(true); //income textfield on stage
+				incEnterBtn.setVisible(true); //enter button for income
+				incReport.setVisible(true); //income report button 
+
+				msgLbl.setText("<html>Please add the source and amount of your income.<html>"); //message on stage
+				//expenseCalc = new ExpenseCalculator(AllData.get(AllData.size() - 1));
+			}
+		});
+		incomeBtn.setBounds(20, 92, 107, 31); //creating the size of button 
+		frame.getContentPane().add(incomeBtn); //adding button to stage 
+		
+		//creating the income source field
+		IncSourceField = new JTextField();
+		IncSourceField.setBounds(203, 82, 107, 20);
+		IncSourceField.setVisible(false);
+		frame.getContentPane().add(IncSourceField);
+		IncSourceField.setColumns(10);
+		
+		//creating the income source label
+		IncSourceLbl = new JLabel("Source of Income");
+		IncSourceLbl.setFont(new Font("Perpetua", Font.PLAIN, 12));
+		IncSourceLbl.setBounds(103, 85, 99, 14);
+		IncSourceLbl.setVisible(false);
+		frame.getContentPane().add(IncSourceLbl);
+		
+		//Income Amount field creating the field, size and adding to stage
+		IncAmountField = new JTextField();
+		IncAmountField.setBounds(203, 113, 107, 20);
+		IncAmountField.setVisible(false);
+		frame.getContentPane().add(IncAmountField);
+		IncAmountField.setColumns(10);
+		
+		//Creating the income enter button 
+		incEnterBtn = new JButton("ENTER");
+		incEnterBtn.setFont(new Font("Stencil", Font.PLAIN, 15));
+		incEnterBtn.setVisible(false);
+		
+		
+		//Creating the income enter button 
+		incReport = new JButton("Income Report");
+		incReport.setFont(new Font("Stencil", Font.PLAIN, 10));
+		incReport.setVisible(false);
+
+		//when income enter is pressed do the following 
+		incEnterBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//remove all these things on stage 
+				sourceField.setVisible(false);
+				amountField.setVisible(false);
+				freqField.setVisible(false);
+				sourceLbl.setVisible(false);
+				amountLbl.setVisible(false);
+				freqLbl.setVisible(false);
+				enter2Btn.setVisible(false);
+				IncSourceField.setVisible(false); 
+				IncSourceLbl.setVisible(false); 
+				amountLbl.setVisible(false); 
+				IncAmountField.setVisible(false); 
+				incEnterBtn.setVisible(false); 
+				incReport.setVisible(false);
+				
+				msgLbl.setText("income added"); //create a message on stage
+				
+
+			}
+		});
+		//when income report is pressed do the following 
+		incReport.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//remove all these things on stage 
+				sourceField.setVisible(false);
+				amountField.setVisible(false);
+				freqField.setVisible(false);
+				sourceLbl.setVisible(false);
+				amountLbl.setVisible(false);
+				freqLbl.setVisible(false);
+				enter2Btn.setVisible(false);
+				IncSourceField.setVisible(false); 
+				IncSourceLbl.setVisible(false); 
+				amountLbl.setVisible(false); 
+				IncAmountField.setVisible(false); 
+				incEnterBtn.setVisible(false); 
+				incReport.setVisible(false);
+				
+				msgLbl.setText("this is the income report"); //create a message on stage
+				
+
+			}
+		});
+		
+		//setting the stage for the income enter button 
+		incEnterBtn.setBounds(335, 222, 89, 28);
+		frame.getContentPane().add(incEnterBtn);
+		
+		//setting the stage for the income report button 
+		incReport.setBounds(322, 250, 115, 28);
+		frame.getContentPane().add(incReport);
 
 	}
 
