@@ -245,6 +245,7 @@ public class EWalletApplication {
 						Integer.parseInt(freqField.getText()));
 				expenseCalc.addExpense(expense);
 				msgLbl.setText("");
+//				comment
 			}
 		});
 		enter2Btn.setBounds(335, 222, 89, 28);
