@@ -40,6 +40,7 @@ public class EWalletApplication {
 	private JButton buttonConvertToDollars;
 	private JButton incomeBtn;
 	private JButton incReport;
+	private JButton expReport;
 
 	/**
 	 * Launch the application.
@@ -193,12 +194,17 @@ public class EWalletApplication {
 				textFieldCurrentBalance.setVisible(false);
 				buttonConvertToEuros.setVisible(false);
 				buttonConvertToDollars.setVisible(false);
+				expReport.setVisible(true); //set report button on stage
 				msgLbl.setText("<html>Please add the source, amount and yearly frequency of your Expense.<html>");
 				expenseCalc = new ExpenseCalculator(AllData.get(AllData.size() - 1));
 			}
-		});
+
+			});
+	
+		
 		addExpBtn.setBounds(20, 42, 107, 31);
 		frame.getContentPane().add(addExpBtn);
+		
 
 		sourceField = new JTextField();
 		sourceField.setBounds(203, 82, 107, 20);
@@ -239,6 +245,41 @@ public class EWalletApplication {
 		enter2Btn = new JButton("ENTER");
 		enter2Btn.setFont(new Font("Stencil", Font.PLAIN, 15));
 		enter2Btn.setVisible(false);
+		
+		expReport = new JButton("Expense Report"); //expense report button
+		expReport.setFont(new Font("Stencil", Font.PLAIN, 10));
+		expReport.setVisible(false);
+		
+		//setting expense report button 
+		expReport.setBounds(322, 250, 115, 28);
+		frame.getContentPane().add(expReport);
+				
+        //// Feature 5 -- Creating the Expense report button 
+				
+		//when Expense report is pressed do the following 
+		expReport.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			//remove all these things on stage 
+				sourceField.setVisible(false);
+				amountField.setVisible(false);
+				freqField.setVisible(false);
+				sourceLbl.setVisible(false);
+				amountLbl.setVisible(false);
+				freqLbl.setVisible(false);
+				enter2Btn.setVisible(false);
+				IncSourceField.setVisible(false); 
+				IncSourceLbl.setVisible(false); 
+				amountLbl.setVisible(false); 
+				IncAmountField.setVisible(false); 
+				incEnterBtn.setVisible(false); 
+				incReport.setVisible(false);
+				expReport.setVisible(false);
+						
+					msgLbl.setText("Users Expense report"); //message 
+				System.out.print(expenseCalc.PrintExpensereport());
+								
+					}
+		});
 
 		enter2Btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -252,12 +293,17 @@ public class EWalletApplication {
 				Expense expense = new Expense(sourceField.getText(), Double.parseDouble(amountField.getText()),
 						Integer.parseInt(freqField.getText()));
 				expenseCalc.addExpense(expense);
-				msgLbl.setText("");
-
-			}
+				msgLbl.setText("");	
+			
+			}	
+			
 		});
+		
 		enter2Btn.setBounds(335, 222, 89, 28);
 		frame.getContentPane().add(enter2Btn);
+		
+		
+		
 		
 		////Feature 3 -- creating an income button 
 		
