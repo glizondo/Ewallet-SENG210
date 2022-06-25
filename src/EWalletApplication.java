@@ -275,7 +275,7 @@ public class EWalletApplication {
 				incReport.setVisible(false);
 				expReport.setVisible(false);
 						
-					msgLbl.setText("Users Expense report"); //message 
+				msgLbl.setText("Users Expense report"); //message 
 				System.out.print(expenseCalc.PrintExpensereport());
 								
 					}
@@ -416,6 +416,7 @@ public class EWalletApplication {
 				incReport.setVisible(false);
 				
 				msgLbl.setText("this is the income report"); //create a message on stage
+				System.out.print(expenseCalc.PrintIncomereport());
 				
 
 			}

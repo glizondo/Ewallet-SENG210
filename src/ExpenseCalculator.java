@@ -30,7 +30,7 @@ public class ExpenseCalculator implements Expenser {
 		
 		String str = "User's Expenses:\n";
 		
-		for (Expense ex : user.GetExpenses()) {
+		for (Expense ex : user.GetExpenses()) { //get expenses for report
 			str += ex.toString() + "\n";
 		}
 		
@@ -39,8 +39,14 @@ public class ExpenseCalculator implements Expenser {
 	}
 
 	@Override
-	public void PrintIncomereport() {
-		// TODO Auto-generated method stub
+	public String PrintIncomereport() {
+		String str = "User's Income Report:\n";
+		
+		for (Wage ex : user.getIncome()) { //get Income for report
+			str += ex.toString() + "\n";
+		}
+		
+		return str;
 
 	}
 

@@ -19,5 +19,11 @@ public class User {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	public ArrayList <Wage> getIncome() {
+		return Income;
+	}
+	public void setIncome(ArrayList <Wage> income) {
+		Income = income;
+	}
 	
 }
