@@ -24,13 +24,9 @@ public class ExpenseCalculator implements Expenser {
 			fileStream = new FileOutputStream("Expenses.txt");
 			fileWriter = new PrintWriter(fileStream);
 			for (int i = 0; i < user.Spending.size(); i++) {
-				System.out.println(i + 1);
 				fileWriter.println(i + 1);
-				System.out.println(user.Spending.get(i).getSource());
 				fileWriter.println(user.Spending.get(i).getSource());
-				System.out.println(user.Spending.get(i).getAmount());
 				fileWriter.println(user.Spending.get(i).getAmount());
-				System.out.println(user.Spending.get(i).getYearlyfrequency());
 				fileWriter.println(user.Spending.get(i).getYearlyfrequency());
 			}
 
@@ -48,11 +44,8 @@ public class ExpenseCalculator implements Expenser {
 			fileStream = new FileOutputStream("Income.txt");
 			fileWriter = new PrintWriter(fileStream);
 			for (int i = 0; i < user.Income.size(); i++) {
-				System.out.println(i + 1);
 				fileWriter.println(i + 1);
-				System.out.println(user.Income.get(i).getSource());
 				fileWriter.println(user.Income.get(i).getSource());
-				System.out.println(user.Income.get(i).getAmount());
 				fileWriter.println(user.Income.get(i).getAmount());
 			}
 

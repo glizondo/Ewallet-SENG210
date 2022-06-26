@@ -73,22 +73,23 @@ public class EWalletApplication {
 	 * Initialize the contents of the frameLogin.
 	 */
 	private void initialize() {
+//		frame for login with credentials. Closes after being logged in
 		frameLogin = new JFrame();
 		frameLogin.getContentPane().setFont(new Font("Perpetua", Font.PLAIN, 11));
 		frameLogin.setBounds(100, 100, 800, 600);
 		frameLogin.getContentPane().setLayout(null);
-		
+//		frame for the main menu where the user can add expenses, incomes and check balance
 		frameMainMenu = new JFrame();
 		frameMainMenu.getContentPane().setFont(new Font("Perpetua", Font.PLAIN, 11));
 		frameMainMenu.setBounds(100, 100, 800, 600);
 		frameMainMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frameMainMenu.getContentPane().setLayout(null);
-		
+//		frame to specially add expenses, closes once one is added
 		frameAddExpense = new JFrame();
 		frameAddExpense.getContentPane().setFont(new Font("Perpetua", Font.PLAIN, 11));
 		frameAddExpense.setBounds(100, 100, 800, 600);
 		frameAddExpense.getContentPane().setLayout(null);
-		
+//		frame for adding income
 		frameAddIncome = new JFrame();
 		frameAddIncome.getContentPane().setFont(new Font("Perpetua", Font.PLAIN, 11));
 		frameAddIncome.setBounds(100, 100, 800, 600);
@@ -183,12 +184,10 @@ public class EWalletApplication {
 	
 
 		//// Feature 5 -- Creating the Expense report button
-
 		enterAddExpenseBtn.setBounds(335, 222, 89, 28);
 		frameAddExpense.getContentPane().add(enterAddExpenseBtn);
 
 		//// Feature 3 -- creating an income button
-
 		incomeBtn = new JButton("Add an Income"); // creating the income button
 		incomeBtn.setFont(new Font("Perpetua", Font.PLAIN, 11)); // setting font size and font for btn
 		incomeBtn.setBounds(20, 92, 107, 31); // creating the size of button
@@ -236,10 +235,7 @@ public class EWalletApplication {
 				msgLbl.setText("Welcome " + usernameField.getText() + "! What would you like to do?");
 				CreateUser(usernameField.getText(), pwdField.getText());
 				expenseCalc = new ExpenseCalculator(AllData.get(AllData.size() - 1));
-
 				
-
-
 			}
 		});
 		loginBtn.setBounds(335, 219, 89, 31);
@@ -250,7 +246,6 @@ public class EWalletApplication {
 				frameAddExpense.setVisible(true);
 				msgLbl.setText("<html>Please add the source, amount and yearly frequency of your Expense.<html>");
 				expenseCalc = new ExpenseCalculator(AllData.get(AllData.size() - 1));
-
 			}
 
 		});
@@ -260,11 +255,9 @@ public class EWalletApplication {
 				Expense expense = new Expense(sourceField.getText(), Double.parseDouble(amountField.getText()),
 						Integer.parseInt(freqField.getText()));
 				expenseCalc.addExpense(expense);
-				
 				msgLbl.setText("");
 				frameAddExpense.setVisible(false);
 				expenseCalc.updateMonthlySavings();
-
 			}
 
 		});
@@ -274,10 +267,7 @@ public class EWalletApplication {
 				frameAddIncome.setVisible(true);
 				msgLbl.setText("<html>Please add the source and amount of your income.<html>"); // message on stage
 				// expenseCalc = new ExpenseCalculator(AllData.get(AllData.size() - 1));
-
-
-
-			}
+		}
 		});
 		// setting the stage for the income enter button
 		incEnterBtn.setBounds(335, 222, 89, 28);
@@ -287,13 +277,11 @@ public class EWalletApplication {
 		incEnterBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				msgLbl.setText("income added"); // create a message on stage
-
 				Wage wage = new Wage(IncSourceField.getText(), Double.parseDouble(IncAmountField.getText()));
 				expenseCalc.addMonthlyIncome(wage);
 				frameAddIncome.setVisible(false);
 				expenseCalc.updateMonthlySavings();
-
-				
+	
 			}
 		});
 		
@@ -314,7 +302,6 @@ public class EWalletApplication {
 			public void actionPerformed(ActionEvent e) {
 				msgLbl.setText("Users Expense report"); // message
 				System.out.print(expenseCalc.PrintExpensereport());
-
 			}
 		});
 
