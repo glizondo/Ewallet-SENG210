@@ -19,10 +19,4 @@ public class User {
 		this.username = username;
 		this.pwd = pwd;
 	}
-
-	public Expense[] GetExpenses() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

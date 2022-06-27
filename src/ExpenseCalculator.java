@@ -63,22 +63,28 @@ public class ExpenseCalculator implements Expenser {
 	}
 
 	@Override
-	public String PrintExpensereport() {
+	public String PrintExpensereport() {  //function that returns the expense report as a string
 
-		String str = "User's Expenses:\n";
+		String str = "User's Expenses: ";
 
-		for (Expense ex : user.GetExpenses()) {
-			str += ex.toString() + "\n";
+		for (Expense ex : user.Spending) {
+			str += "| Expense " + (user.Spending.indexOf(ex) + 1) + ": (source: " + ex.source + ", amount: " + ex.amount + ", yearly frequency: " + ex.yearlyfrequency + ")";
 		}
 
-		return str;
+		return "<html>" + str + "<html>";
 
 	}
 
 	@Override
-	public void PrintIncomereport() {
-		// TODO Auto-generated method stub
+	public String PrintIncomereport() {  //function that returns the income report as a string
+		
+		String str = "User's Incomes:\n";
 
+		for (Wage inc : user.Income) {
+			str += "| Income " + (user.Income.indexOf(inc) + 1) + ": (source: " + inc.source + ", amount: " + inc.amount + ")";
+		}
+
+		return "<html>" + str + "<html>";
 	}
 
 	@Override
