@@ -255,8 +255,8 @@ public class EWalletApplication {
 		frameAddIncome.getContentPane().add(incAmountLbl);
 
 		// creating the expense addition button
-		addExp = new JButton("Add an Expense");
-		addExp.setFont(new Font("Perpetua", Font.PLAIN, 12));
+		addExp = new JButton("Expense");
+		addExp.setFont(new Font("Perpetua", Font.PLAIN, 15));
 		addExp.setBounds(20, 42, 107, 31);
 		frameMainMenu.getContentPane().add(addExp);
 
@@ -274,8 +274,8 @@ public class EWalletApplication {
 		frameAddExpense.getContentPane().add(expReport);
 
 		// creating the income addition button
-		addInc = new JButton("Add an Income");
-		addInc.setFont(new Font("Perpetua", Font.PLAIN, 11));
+		addInc = new JButton("Income");
+		addInc.setFont(new Font("Perpetua", Font.PLAIN, 15));
 		addInc.setBounds(20, 92, 107, 31);
 		frameMainMenu.getContentPane().add(addInc);
 		
@@ -297,11 +297,7 @@ public class EWalletApplication {
 		detailedReportBtn.setBounds(20, 145, 107, 31);
 		frameMainMenu.getContentPane().add(detailedReportBtn);
 
-		// creating the income addition enter button
-		incEnter = new JButton("ENTER");
-		incEnter.setFont(new Font("Stencil", Font.PLAIN, 15));
-		incEnter.setBounds(360, 193, 89, 28);
-		frameAddIncome.getContentPane().add(incEnter);
+
 
 		// creating the income report button
 		incReport = new JButton("Income Report");
@@ -373,15 +369,17 @@ public class EWalletApplication {
 			}
 		});
 
-		// when addInc is pressed do the following
+		
+		//when addInc is pressed do the following
 		addInc.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frameAddIncome.setVisible(true);
-				msgLbl.setText("<html>Please add the source and amount of your income.<html>");
+				msgLbl.setText("<html>Please add the source (Salary, Rental Income, CashBack, Gift or Other) and amount of your income.<html>");
 				frameAddIncome.getContentPane().add(msgLbl);
 				expenseCalc = new ExpenseCalculator(AllData.get(AllData.size() - 1));
-			}
+		}
 		});
+
 		
 		//when detailIncReport is pressed do the following 
 		detailIncReport.addActionListener(new ActionListener() {
@@ -392,7 +390,7 @@ public class EWalletApplication {
 				FrameDetailIncReport.getContentPane().add(msgLbl);
 				
 				//creating the list to pick from 
-		        String[] IncOptionsToChoose = {"Salary", "Rental Income", "CashBack", "Gift", "None of the listed"};
+		        String[] IncOptionsToChoose = {"Salary", "Rental Income", "CashBack", "Gift", "Other"};
 		        //setting up the box and button
 		        JComboBox<String> IncDropDown = new JComboBox<>(IncOptionsToChoose);
 		        IncDropDown.setBounds(80, 50, 140, 20);
@@ -406,32 +404,8 @@ public class EWalletApplication {
 		            @Override
 		            public void actionPerformed(ActionEvent e) {
 		               String IncReport = IncDropDown.getItemAt(IncDropDown.getSelectedIndex());
-		               expenseCalc.PrintIncomereport(); 
+		              IncDetReportLabel.setText(expenseCalc.PrintIncomereportbyTpe(IncReport));
 		              
-
-		               
-		    			switch(IncReport)
-		    			{
-		    			case "Salary":
-		    				System.out.printf("Salary made");
-		    				break;
-		    			
-		    			case "Rental Income":
-		    				System.out.printf("rental  made");
-		    				break;
-		    			case "CashBack":
-		    				System.out.printf("cashback made");
-		    				break;
-		    			case "Gift":
-		    				System.out.printf("gift made");
-		    				break;
-		    			case "None of the listed":
-		    				System.out.printf("all others");
-		    				break;
-		    			
-		    			}
-
-		                IncDetReportLabel.setText(expenseCalc.PrintIncomereport());
 		            }
 		        });
 
@@ -446,17 +420,18 @@ public class EWalletApplication {
 		
 		//when incEnter is pressed do the following
 		incEnter.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Wage wage = new Wage(incSourceField.getText(), Double.parseDouble(incAmountField.getText()));
-				expenseCalc.addMonthlyIncome(wage);
-				frameAddIncome.setVisible(false);
-				expenseCalc.updateMonthlySavings();
-				expenseCalc.updateBalance();
-				expenseCalc.updateMonthlySavings();
-				expenseCalc.copyInfoToTextFiles();
+            public void actionPerformed(ActionEvent e) {
+                Wage wage = new Wage(incSourceField.getText(), Double.parseDouble(incAmountField.getText()));
+                expenseCalc.addMonthlyIncome(wage);
+                frameAddIncome.setVisible(false);
+                expenseCalc.updateMonthlySavings();
+                expenseCalc.updateBalance();
+                expenseCalc.updateMonthlySavings();
+                expenseCalc.copyInfoToTextFiles();
+            }
+        });
 
-			}
-		});
+
 
 		// when incReport is pressed do the following
 		incReport.addActionListener(new ActionListener() {
