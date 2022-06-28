@@ -7,10 +7,16 @@ import java.util.Scanner;
 
 public class ExpenseCalculator implements Expenser {
 	User user;
-	FileInputStream fileReaderBalance;
-	Scanner readerBalance;
+	FileInputStream fileReaderExpenses;
+	FileInputStream fileReaderIncome;
+	Scanner readerExpenses;
+	Scanner readerIncome;
 	FileOutputStream fileStream;
+	FileOutputStream fileStreamExpenses;
+	FileOutputStream fileStreamIncome;
 	PrintWriter fileWriter;
+	PrintWriter fileWriterExpenses;
+	PrintWriter fileWriterIncome;
 
 	ExpenseCalculator(User user) {
 		this.user = user;
@@ -20,55 +26,29 @@ public class ExpenseCalculator implements Expenser {
 	public void addExpense(Expense Ex) {
 		user.Spending.add(Ex);
 
-		try {
-			fileStream = new FileOutputStream("Expenses.txt");
-			fileWriter = new PrintWriter(fileStream);
-			for (int i = 0; i < user.Spending.size(); i++) {
-				fileWriter.println(i + 1);
-				fileWriter.println(user.Spending.get(i).getSource());
-				fileWriter.println(user.Spending.get(i).getAmount());
-				fileWriter.println(user.Spending.get(i).getYearlyfrequency());
-			}
-
-		} catch (FileNotFoundException e) {
-			System.out.println("Did not work");
-		}
-		fileWriter.close();
-
 	}
 
 	@Override
 	public void addMonthlyIncome(Wage W) {
 		user.Income.add(W);
-		try {
-			fileStream = new FileOutputStream("Income.txt");
-			fileWriter = new PrintWriter(fileStream);
-			for (int i = 0; i < user.Income.size(); i++) {
-				fileWriter.println(i + 1);
-				fileWriter.println(user.Income.get(i).getSource());
-				fileWriter.println(user.Income.get(i).getAmount());
-			}
-
-		} catch (FileNotFoundException e) {
-			System.out.println("Did not work");
-		}
-		fileWriter.close();
 
 	}
 
 	@Override
-	public void PrintFullreport() {
-		// TODO Auto-generated method stub
+	public String PrintFullreport() {
 
+		return PrintExpensereport() + PrintIncomereport() + " | Your monthly savings are: "
+				+ Math.round(user.monthlysavings) + " | Your yearly balance is: " + user.balance;
 	}
 
 	@Override
-	public String PrintExpensereport() {  //function that returns the expense report as a string
+	public String PrintExpensereport() { // function that returns the expense report as a string
 
 		String str = "User's Expenses: ";
 
 		for (Expense ex : user.Spending) {
-			str += "| Expense " + (user.Spending.indexOf(ex) + 1) + ": (source: " + ex.source + ", amount: " + ex.amount + ", yearly frequency: " + ex.yearlyfrequency + ")";
+			str += "| Expense " + (user.Spending.indexOf(ex) + 1) + ": (source: " + ex.source + ", amount: " + ex.amount
+					+ ", yearly frequency: " + ex.yearlyfrequency + ")";
 		}
 
 		return "<html>" + str + "<html>";
@@ -76,12 +56,13 @@ public class ExpenseCalculator implements Expenser {
 	}
 
 	@Override
-	public String PrintIncomereport() {  //function that returns the income report as a string
-		
+	public String PrintIncomereport() { // function that returns the income report as a string
+
 		String str = "User's Incomes:\n";
 
 		for (Wage inc : user.Income) {
-			str += "| Income " + (user.Income.indexOf(inc) + 1) + ": (source: " + inc.source + ", amount: " + inc.amount + ")";
+			str += "| Income " + (user.Income.indexOf(inc) + 1) + ": (source: " + inc.source + ", amount: " + inc.amount
+					+ ")";
 		}
 
 		return "<html>" + str + "<html>";
@@ -131,39 +112,99 @@ public class ExpenseCalculator implements Expenser {
 
 	@Override
 	public void updateMonthlySavings() {
-		double income = 0;
-		double expense = 0;
-		int timesAYear = 0;
-		double total = 0;
+		double spendingMonth = 0;
+		double incomeMonth = 0;
+		for (int i = 0; i < user.Spending.size(); i++) {
+			spendingMonth += user.Spending.get(i).getAmount();
+		}
+
+		for (int i = 0; i < user.Income.size(); i++) {
+			incomeMonth += (user.Income.get(i).getAmount() / 12);
+		}
+
+		user.monthlysavings = incomeMonth - spendingMonth;
+
+	}
+
+	public void updateBalance() {
+		double spendingMonth = 0;
+		double incomeYear = 0;
 		try {
-			fileReaderBalance = new FileInputStream("Balance.txt");
-			readerBalance = new Scanner(fileReaderBalance);
-			for (int i = 0; i < user.Income.size(); i++) {
-				income += user.Income.get(i).getAmount();
-			}
 			for (int i = 0; i < user.Spending.size(); i++) {
-
-				timesAYear = user.Spending.get(i).getYearlyfrequency();
-				expense += (user.Spending.get(i).getAmount() * timesAYear);
+				spendingMonth += (user.Spending.get(i).getAmount() * 12);
 			}
-			total = income - expense;
 
+			for (int i = 0; i < user.Income.size(); i++) {
+				incomeYear += user.Income.get(i).getAmount();
+
+			}
+		} catch (Exception e) {
+			System.out.println("Unable to update balance");
+		}
+
+		user.balance = (incomeYear - spendingMonth);
+	}
+
+	public void copyInfoToTextFiles() {
+
+		try {
+			fileStreamExpenses = new FileOutputStream("Expenses.txt");
+			fileWriterExpenses = new PrintWriter(fileStreamExpenses);
+			for (int i = 0; i < user.Spending.size(); i++) {
+				fileWriterExpenses.println(user.Spending.get(i).getSource());
+				fileWriterExpenses.println(user.Spending.get(i).getAmount());
+				fileWriterExpenses.println(user.Spending.get(i).getYearlyfrequency());
+			}
 
 		} catch (FileNotFoundException e) {
 			System.out.println("Did not work");
 		}
 
 		try {
-			fileStream = new FileOutputStream("Balance.txt");
-			fileWriter = new PrintWriter(fileStream);
-			fileWriter.println(total);
+			fileStreamIncome = new FileOutputStream("Income.txt");
+			fileWriterIncome = new PrintWriter(fileStreamIncome);
+			for (int i = 0; i < user.Income.size(); i++) {
+				fileWriterIncome.println(user.Income.get(i).getSource());
+				fileWriterIncome.println(user.Income.get(i).getAmount());
+			}
+
 		} catch (FileNotFoundException e) {
 			System.out.println("Did not work");
+		}
+
+		fileWriterExpenses.close();
+		fileWriterIncome.close();
+	}
+
+	public void copyInfoToArrayList() {
+		try {
+			fileReaderExpenses = new FileInputStream("Expenses.txt");
+			readerExpenses = new Scanner(fileReaderExpenses);
+			fileReaderIncome = new FileInputStream("Income.txt");
+			readerIncome = new Scanner(fileReaderIncome);
+
+			while (readerExpenses.hasNext()) {
+				int e = 0;
+				String source = readerExpenses.next();
+				double amount = readerExpenses.nextDouble();
+				int frequency = readerExpenses.nextInt();
+				user.Spending.add(e, new Expense(source, amount, frequency));
+				e++;
+			}
+
+			while (readerIncome.hasNext()) {
+				int i = 0;
+				String source = readerIncome.next();
+				double amount = readerIncome.nextDouble();
+				user.Income.add(i, new Wage(source, amount));
+				i++;
+			}
+
+		} catch (FileNotFoundException e) {
+			System.out.println("Unable to read file");
 
 		}
 
-		fileWriter.close();
-		readerBalance.close();
 	}
 
 }
