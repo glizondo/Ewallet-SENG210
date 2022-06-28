@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ExpenseCalculator implements Expenser {
+	
 	User user;
 	FileInputStream fileReaderBalance;
 	Scanner readerBalance;
@@ -88,7 +89,11 @@ public class ExpenseCalculator implements Expenser {
 	}
 
 	@Override
-	public void PrintIncomereportbyTpe() {
+	public String PrintIncomereportbyTpe(String reportRequested) {
+		
+		//String reportRequested
+		//.out.println(incomeout);
+        return reportRequested;
 		// TODO Auto-generated method stub
 
 	}
