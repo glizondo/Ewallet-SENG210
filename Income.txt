@@ -1,6 +1,11 @@
+<<<<<<< HEAD
 1
 salary
 123.0
 2
 salary
 123.0
+=======
+Salary
+10000.0
+>>>>>>> 56bf296f76fe885b8f2094becec7c9b742d309ee

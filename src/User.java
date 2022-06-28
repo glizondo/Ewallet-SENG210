@@ -19,4 +19,22 @@ public class User {
 		this.username = username;
 		this.pwd = pwd;
 	}
+
+	public double getBalance() {
+		return balance;
+	}
+
+	public void setBalance(double balance) {
+		this.balance = balance;
+	}
+
+	public double getMonthlysavings() {
+		return monthlysavings;
+	}
+
+	public void setMonthlysavings(double monthlysavings) {
+		this.monthlysavings = monthlysavings;
+	}
+	
+	
 }
