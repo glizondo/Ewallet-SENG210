@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ExpenseCalculator implements Expenser {
+	
 	User user;
 	FileInputStream fileReaderExpenses;
 	FileInputStream fileReaderIncome;
@@ -64,13 +65,55 @@ public class ExpenseCalculator implements Expenser {
 			str += "| Income " + (user.Income.indexOf(inc) + 1) + ": (source: " + inc.source + ", amount: " + inc.amount
 					+ ")";
 		}
-
 		return "<html>" + str + "<html>";
 	}
-
+	
+	
+//method for print income report by type 
 	@Override
-	public void PrintIncomereportbyTpe() {
-		// TODO Auto-generated method stub
+	public String PrintIncomereportbyTpe(String reportRequested) {
+		String msgReturned ="";
+   if(reportRequested.equals("Salary")) {
+	  for(int i =1; i < user.Income.size();i++) {
+			if(user.Income.get(i).getSource().equalsIgnoreCase(reportRequested)) {
+				msgReturned += "Source " +user.Income.get(i).getSource() + " Amount " +user.Income.get(i).getAmount();
+			}
+		}  
+   }
+   if(reportRequested.equals("Rental Income")) {
+	  for(int i =1; i < user.Income.size();i++) {
+			if(user.Income.get(i).getSource().equalsIgnoreCase(reportRequested)) {
+				msgReturned += "Source " +user.Income.get(i).getSource() + " Amount " +user.Income.get(i).getAmount();
+			}
+		}  
+   }
+   if(reportRequested.equals("CashBack")) {
+	  for(int i =1; i < user.Income.size();i++) {
+			if(user.Income.get(i).getSource().equalsIgnoreCase(reportRequested)) {
+				msgReturned += "Source " +user.Income.get(i).getSource() + " Amount " +user.Income.get(i).getAmount();
+			}
+		}  
+   }
+   if(reportRequested.equals("Gift")) {
+	  for(int i =1; i < user.Income.size();i++) {
+			if(user.Income.get(i).getSource().equalsIgnoreCase(reportRequested)) {
+				msgReturned += "Source " +user.Income.get(i).getSource() + " Amount " +user.Income.get(i).getAmount();
+			}
+		}  
+   }
+   if(reportRequested.equals("Other")) {
+	  for(int i =1; i < user.Income.size();i++) {
+			if(user.Income.get(i).getSource().equalsIgnoreCase(reportRequested)) {
+				msgReturned += "Source " +user.Income.get(i).getSource() + " Amount " +user.Income.get(i).getAmount();
+			}
+		}  
+   }
+   
+   
+   
+   return"<html>" + msgReturned +"<html>";
+
+		
 
 	}
 
