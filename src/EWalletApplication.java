@@ -26,10 +26,12 @@ public class EWalletApplication {
 	private JFrame frameExpReport;
 	private JFrame frameIncReport;
 	private JFrame FrameDetailIncReport;
+	private JFrame FrameDetailExpReport;
 	private ArrayList<User> AllData = new ArrayList<User>();
 	private ExpenseCalculator expenseCalc;
 	private JLabel msgLbl;
-	private JLabel IncDetReportLabel;	
+	private JLabel IncDetReportLabel;
+	private JLabel expDetReportLabel;
 	private JTextField usernameField;
 	private JTextField pwdField;
 	private JButton loginBtn;
@@ -55,6 +57,7 @@ public class EWalletApplication {
 	private JButton buttonConvertToEuros;
 	private JLabel reportLbl;
 	private JButton detailIncReport;
+	private JButton detailExpReport;
 	private User user;
 
 	/**
@@ -136,6 +139,13 @@ public class EWalletApplication {
 		FrameDetailIncReport.setTitle("Expense Report");
 		FrameDetailIncReport.setBounds(100, 100, 485, 300);
 		FrameDetailIncReport.getContentPane().setLayout(null);
+		
+		//frame for detailed Expense report 
+		FrameDetailExpReport = new JFrame();
+		FrameDetailExpReport.getContentPane().setFont(new Font("Perpetua", Font.PLAIN, 11));
+		FrameDetailExpReport.setTitle("Expense Report");
+		FrameDetailExpReport.setBounds(100, 100, 485, 300);
+		FrameDetailExpReport.getContentPane().setLayout(null);
 		
 		
 		//creating the dynamic message label
@@ -263,7 +273,7 @@ public class EWalletApplication {
 		// creating the expense addition enter button
 		expEnter = new JButton("ENTER");
 		expEnter.setFont(new Font("Stencil", Font.PLAIN, 15));
-		expEnter.setBounds(360, 194, 89, 28);
+		expEnter.setBounds(360, 147, 89, 28);
 		frameAddExpense.getContentPane().add(expEnter);
 
 		// creating the expense report button
@@ -291,7 +301,13 @@ public class EWalletApplication {
 		detailIncReport.setBounds(326, 193, 123, 28);
 		frameAddIncome.getContentPane().add(detailIncReport);
 		
-		//creating the income report button
+		//creating the detailed Expense Report button
+		detailExpReport = new JButton("Report By Type");
+		detailExpReport.setFont(new Font("Stencil", Font.PLAIN, 10));
+		detailExpReport.setBounds(326, 193, 123, 28);
+		frameAddExpense.getContentPane().add(detailExpReport);
+		
+		//creating the detailed report button
 		JButton detailedReportBtn = new JButton("Detailed Report");
 		detailedReportBtn.setFont(new Font("Perpetua", Font.PLAIN, 11));
 		detailedReportBtn.setBounds(20, 145, 107, 31);
@@ -315,6 +331,11 @@ public class EWalletApplication {
         IncDetReportLabel= new JLabel("");
         IncDetReportLabel.setVerticalAlignment(SwingConstants.TOP);
         IncDetReportLabel.setBounds(10, 170, 400, 100);
+        
+        //creating the detailed Expense report label 
+        expDetReportLabel= new JLabel("");
+        expDetReportLabel.setVerticalAlignment(SwingConstants.TOP);
+        expDetReportLabel.setBounds(10, 170, 400, 100);
 		
 		//when loginBtn is pressed do the following
 		loginBtn.addActionListener(new ActionListener() {
@@ -379,7 +400,7 @@ public class EWalletApplication {
 				expenseCalc = new ExpenseCalculator(AllData.get(AllData.size() - 1));
 		}
 		});
-
+		
 		
 		//when detailIncReport is pressed do the following 
 		detailIncReport.addActionListener(new ActionListener() {
@@ -408,8 +429,9 @@ public class EWalletApplication {
 		              
 		            }
 		        });
-
-				
+		        
+		
+			
 				Wage wage = new Wage(incSourceField.getText(), Double.parseDouble(incAmountField.getText()));
 				expenseCalc.addMonthlyIncome(wage);
 				frameAddIncome.setVisible(false);
@@ -417,6 +439,7 @@ public class EWalletApplication {
 	
 			}
 		});	
+		
 		
 		//when incEnter is pressed do the following
 		incEnter.addActionListener(new ActionListener() {
@@ -442,6 +465,7 @@ public class EWalletApplication {
 				frameAddIncome.setVisible(false);
 			}
 		});
+		
 
 		// when buttonConvertToEuros is pressed do the following
 		buttonConvertToEuros.addActionListener(new ActionListener() {
@@ -488,8 +512,36 @@ public class EWalletApplication {
 			}
 		});
 
-	    }
+		//when detailExpReport is pressed do the following 
+		detailExpReport.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+		FrameDetailExpReport.setVisible(true);
+		FrameDetailExpReport.add(expDetReportLabel);
+			msgLbl.setText("<html>Please select the type of Expense you want to view. <html>");
+		FrameDetailExpReport.getContentPane().add(msgLbl);
+										
+		//creating the list to pick from 
+		String[] expOptionsToChoose = {"Rent", "Groceries", "Utilities", "Insurance", "Other"};
+		//setting up the box and button
+		JComboBox<String> expDropDown = new JComboBox<>(expOptionsToChoose);
+	    expDropDown.setBounds(80, 50, 140, 20);
+		JButton expReportDoneBtn = new JButton("Done");
+		expReportDoneBtn.setBounds(100, 100, 90, 20);
+		FrameDetailExpReport.add(expReportDoneBtn);
+		FrameDetailExpReport.add(expDropDown);
 
+		//when detailed report is clicked 
+		expReportDoneBtn.addActionListener(new ActionListener() {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+		String expReport = expDropDown.getItemAt(expDropDown.getSelectedIndex());
+		expDetReportLabel.setText(expenseCalc.PrintExpensebyType(expReport));
+				}
+			});
+
+			}
+		});
+	 }
 	// method to create user
 	public void CreateUser(String username, String password) {
 		User newUser = new User(username, password);
