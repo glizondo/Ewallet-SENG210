@@ -118,8 +118,49 @@ public class ExpenseCalculator implements Expenser {
 	}
 
 	@Override
-	public void PrintExpensebyType() {
-		// TODO Auto-generated method stub
+	public String PrintExpensebyType(String reportRequested) {
+		String msgReturned ="";
+		   if(reportRequested.equals("Rent")) {
+			  for(int i =1; i < user.Spending.size();i++) {
+					if(user.Spending.get(i).getSource().equalsIgnoreCase(reportRequested)) {
+						msgReturned += "Source " +user.Spending.get(i).getSource() + " Amount " +user.Spending.get(i).getAmount();
+					}
+				}  
+		   }
+		   if(reportRequested.equals("Groceries")) {
+			  for(int i =1; i < user.Spending.size();i++) {
+					if(user.Spending.get(i).getSource().equalsIgnoreCase(reportRequested)) {
+						msgReturned += "Source " +user.Spending.get(i).getSource() + " Amount " +user.Spending.get(i).getAmount();
+					}
+				}  
+		   }
+		   if(reportRequested.equals("Utilities")) {
+			  for(int i =1; i < user.Spending.size();i++) {
+					if(user.Spending.get(i).getSource().equalsIgnoreCase(reportRequested)) {
+						msgReturned += "Source " +user.Spending.get(i).getSource() + " Amount " +user.Spending.get(i).getAmount();
+					}
+				}  
+		   }
+		   if(reportRequested.equals("Insurance")) {
+			  for(int i =1; i < user.Spending.size();i++) {
+					if(user.Spending.get(i).getSource().equalsIgnoreCase(reportRequested)) {
+						msgReturned += "Source " +user.Spending.get(i).getSource() + " Amount " +user.Spending.get(i).getAmount();
+					}
+				}  
+		   }
+		   if(reportRequested.equals("Other")) {
+			  for(int i =1; i < user.Spending.size();i++) {
+					if(user.Spending.get(i).getSource().equalsIgnoreCase(reportRequested)) {
+						msgReturned += "Source " +user.Spending.get(i).getSource() + " Amount " +user.Spending.get(i).getAmount();
+					}
+				}  
+		   }
+		   
+		   
+		   
+		   return"<html>" + msgReturned +"<html>";
+
+				
 
 	}
 

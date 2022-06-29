@@ -17,7 +17,7 @@ public User userAtHand= null;
 	//As  a user I would like to view a detailed report of income of a certain type, and summary information for income
 	public String PrintIncomereportbyTpe(String reportRequested);
 	//As  a user I would like to view a detailed report of expense of a certain type , and summary information for expenses
-	public void PrintExpensebyType();
+	public String PrintExpensebyType(String reportRequested);
 	// As a user I would like to choose a report and export it as an external file (any type is fine preferences are csv or JSON)
 	public void exportReport(String reportTitle);
 	//	As a user I would like to view my current balance in a different currency 
