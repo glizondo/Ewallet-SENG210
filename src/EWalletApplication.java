@@ -7,14 +7,19 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
+import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import javax.swing.JTextField;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.SwingConstants;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.JRadioButton;
 
 public class EWalletApplication {
@@ -25,6 +30,7 @@ public class EWalletApplication {
 	private JFrame frameAddIncome;
 	private JFrame frameExpReport;
 	private JFrame frameIncReport;
+	private JFrame frameFiLoaded;
 	private JFrame FrameDetailIncReport;
 	private JFrame FrameDetailExpReport;
 	private ArrayList<User> AllData = new ArrayList<User>();
@@ -59,6 +65,7 @@ public class EWalletApplication {
 	private JButton detailIncReport;
 	private JButton detailExpReport;
 	private User user;
+	private JButton loadFileBtn;
 
 	/**
 	 * Launch the application.
@@ -103,6 +110,14 @@ public class EWalletApplication {
 		frameMainMenu.setBounds(100, 100, 485, 300);
 		frameMainMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frameMainMenu.getContentPane().setLayout(null);
+		
+		//frameFiLoaded
+		//Frame for the file loaded screen to say true if loaded false if not 
+		frameFiLoaded = new JFrame();
+		frameFiLoaded.getContentPane().setFont(new Font("Perpetua", Font.PLAIN, 11));
+		frameFiLoaded.setTitle("Expenses");
+		frameFiLoaded.setBounds(100, 100, 485, 300);
+		frameFiLoaded.getContentPane().setLayout(null);
 
 		// frame for adding expense, closes once one is added
 		frameAddExpense = new JFrame();
@@ -173,10 +188,19 @@ public class EWalletApplication {
 		pwdField.setColumns(10);
 
 		// creating the login button
-		loginBtn = new JButton("ENTER");
+		loginBtn = new JButton("LOG IN");
 		loginBtn.setFont(new Font("Stencil", Font.PLAIN, 15));
 		loginBtn.setBounds(360, 219, 89, 31);
 		frameLogin.getContentPane().add(loginBtn);
+		
+		//creating the load file button 
+		//loadFileBtn
+		loadFileBtn = new JButton("Load File");
+		loadFileBtn.setFont(new Font("Perpetua", Font.PLAIN, 15));
+		loadFileBtn.setBounds(20, 195, 107, 31); //(20, 145, 107, 31);
+		frameMainMenu.getContentPane().add(loadFileBtn);
+
+		
 
 		// creating the current balance label
 		labelCurrentBalance = new JLabel("Current Balance");
@@ -364,6 +388,39 @@ public class EWalletApplication {
 			}
 
 		});
+		// when addExp is pressed do the following
+		loadFileBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				JFileChooser openFileChooser = new JFileChooser();
+				openFileChooser.setCurrentDirectory(new File("c:\\Desktop"));
+				openFileChooser.setFileFilter(new FileNameExtensionFilter("TXT","txt"));
+
+				int returnValue = openFileChooser.showOpenDialog(null);
+
+				if (returnValue == JFileChooser.APPROVE_OPTION) {
+					File selectedFile = openFileChooser.getSelectedFile();
+					//System.out.println(selectedFile.getAbsolutePath());
+					frameFiLoaded.setVisible(true);
+					//msgLbl.setText("File Loaded Successfully");
+					frameFiLoaded.getContentPane().add(msgLbl);
+					 try{  
+					        BufferedReader br=new BufferedReader(new FileReader(selectedFile));    
+					        String s1="",s2="";                         
+					        while((s1=br.readLine())!=null){    
+					        s2+=s1+"\n";    
+					        }    
+					        
+					        msgLbl.setText("<html> File Loaded , Here is your expenses loaded : <html>" +s2);   
+					        br.close();  
+					        
+					        }catch (Exception ex) {ex.printStackTrace();  }
+				}
+				 
+				
+			}
+
+		});
 
 		// when expEnter is pressed do the following
 		expEnter.addActionListener(new ActionListener() {
@@ -512,7 +569,7 @@ public class EWalletApplication {
 			}
 		});
 
-		//when detailExpReport is pressed do the following 
+    //when detailExpReport is pressed do the following 
 		detailExpReport.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 		FrameDetailExpReport.setVisible(true);
