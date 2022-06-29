@@ -3,6 +3,7 @@ public class Wage {
 	String source;
 	double amount;
 	String Month;
+	 String getAmount;
 
 //	public Wage(String source, double amount, String month) {
 //		super();
