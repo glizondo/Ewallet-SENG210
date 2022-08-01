@@ -355,8 +355,8 @@ public class EWalletApplication {
 		// when loginBtn is pressed do the following
 		loginBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				PasswordChecker passwordCheck = new PasswordChecker();
-				if (passwordCheck.checkValidPassword(pwdField.getText())==true) {
+				User user = new User("","");
+				if (user.checkValidPassword(pwdField.getText())==true) {
 					JOptionPane.showMessageDialog(null, "You logged in!",
 							"", JOptionPane.PLAIN_MESSAGE);
 					frameMainMenu.setVisible(true);
