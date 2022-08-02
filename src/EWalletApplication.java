@@ -110,9 +110,9 @@ public class EWalletApplication {
 		frameMainMenu.setBounds(100, 100, 485, 300);
 		frameMainMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frameMainMenu.getContentPane().setLayout(null);
-		
-		//frameFiLoaded
-		//Frame for the file loaded screen to say true if loaded false if not 
+
+		// frameFiLoaded
+		// Frame for the file loaded screen to say true if loaded false if not
 		frameFiLoaded = new JFrame();
 		frameFiLoaded.getContentPane().setFont(new Font("Perpetua", Font.PLAIN, 11));
 		frameFiLoaded.setTitle("Expenses");
@@ -147,24 +147,19 @@ public class EWalletApplication {
 		frameIncReport.setBounds(100, 100, 485, 300);
 		frameIncReport.getContentPane().setLayout(null);
 
-		
-		//frame for detailed income report 
+		// frame for detailed income report
 		FrameDetailIncReport = new JFrame();
 		FrameDetailIncReport.getContentPane().setFont(new Font("Perpetua", Font.PLAIN, 11));
 		FrameDetailIncReport.setTitle("Expense Report");
 		FrameDetailIncReport.setBounds(100, 100, 485, 300);
 		FrameDetailIncReport.getContentPane().setLayout(null);
-		
-		//frame for detailed Expense report 
+
+		// frame for detailed Expense report
 		FrameDetailExpReport = new JFrame();
 		FrameDetailExpReport.getContentPane().setFont(new Font("Perpetua", Font.PLAIN, 11));
 		FrameDetailExpReport.setTitle("Expense Report");
 		FrameDetailExpReport.setBounds(100, 100, 485, 300);
 		FrameDetailExpReport.getContentPane().setLayout(null);
-		
-		
-		//creating the dynamic message label
-
 
 		// creating the dynamic message label
 		msgLbl = new JLabel("Welcome to EWallet! Please create a user.");
@@ -192,15 +187,13 @@ public class EWalletApplication {
 		loginBtn.setFont(new Font("Stencil", Font.PLAIN, 15));
 		loginBtn.setBounds(360, 219, 89, 31);
 		frameLogin.getContentPane().add(loginBtn);
-		
-		//creating the load file button 
-		//loadFileBtn
+
+		// creating the load file button
+		// loadFileBtn
 		loadFileBtn = new JButton("Load File");
 		loadFileBtn.setFont(new Font("Perpetua", Font.PLAIN, 15));
-		loadFileBtn.setBounds(20, 195, 107, 31); //(20, 145, 107, 31);
+		loadFileBtn.setBounds(20, 195, 107, 31); // (20, 145, 107, 31);
 		frameMainMenu.getContentPane().add(loadFileBtn);
-
-		
 
 		// creating the current balance label
 		labelCurrentBalance = new JLabel("Current Balance");
@@ -312,32 +305,30 @@ public class EWalletApplication {
 		addInc.setFont(new Font("Perpetua", Font.PLAIN, 15));
 		addInc.setBounds(20, 92, 107, 31);
 		frameMainMenu.getContentPane().add(addInc);
-		
-		//creating the income addition enter button
+
+		// creating the income addition enter button
 		incEnter = new JButton("Add An Income");
 		incEnter.setFont(new Font("Stencil", Font.PLAIN, 10));
 		incEnter.setBounds(326, 105, 123, 28);
 		frameAddIncome.getContentPane().add(incEnter);
-		
-		//Creating the detailed income button
+
+		// Creating the detailed income button
 		detailIncReport = new JButton("Report By Type");
 		detailIncReport.setFont(new Font("Stencil", Font.PLAIN, 10));
 		detailIncReport.setBounds(326, 193, 123, 28);
 		frameAddIncome.getContentPane().add(detailIncReport);
-		
-		//creating the detailed Expense Report button
+
+		// creating the detailed Expense Report button
 		detailExpReport = new JButton("Report By Type");
 		detailExpReport.setFont(new Font("Stencil", Font.PLAIN, 10));
 		detailExpReport.setBounds(326, 193, 123, 28);
 		frameAddExpense.getContentPane().add(detailExpReport);
-		
-		//creating the detailed report button
+
+		// creating the detailed report button
 		JButton detailedReportBtn = new JButton("Detailed Report");
 		detailedReportBtn.setFont(new Font("Perpetua", Font.PLAIN, 11));
 		detailedReportBtn.setBounds(20, 145, 107, 31);
 		frameMainMenu.getContentPane().add(detailedReportBtn);
-
-
 
 		// creating the income report button
 		incReport = new JButton("Income Report");
@@ -350,29 +341,39 @@ public class EWalletApplication {
 		reportLbl.setFont(new Font("Yu Gothic UI Semibold", Font.BOLD, 13));
 		reportLbl.setVerticalAlignment(SwingConstants.TOP);
 		reportLbl.setBounds(10, 11, 449, 239);
-		
-		//creating the detailed income report label 
-        IncDetReportLabel= new JLabel("");
-        IncDetReportLabel.setVerticalAlignment(SwingConstants.TOP);
-        IncDetReportLabel.setBounds(10, 170, 400, 100);
-        
-        //creating the detailed Expense report label 
-        expDetReportLabel= new JLabel("");
-        expDetReportLabel.setVerticalAlignment(SwingConstants.TOP);
-        expDetReportLabel.setBounds(10, 170, 400, 100);
-		
-		//when loginBtn is pressed do the following
+
+		// creating the detailed income report label
+		IncDetReportLabel = new JLabel("");
+		IncDetReportLabel.setVerticalAlignment(SwingConstants.TOP);
+		IncDetReportLabel.setBounds(10, 170, 400, 100);
+
+		// creating the detailed Expense report label
+		expDetReportLabel = new JLabel("");
+		expDetReportLabel.setVerticalAlignment(SwingConstants.TOP);
+		expDetReportLabel.setBounds(10, 170, 400, 100);
+
+		// when loginBtn is pressed do the following
 		loginBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				frameMainMenu.setVisible(true);
-				frameLogin.setVisible(false);
-				msgLbl.setText("Welcome " + usernameField.getText() + "! What would you like to do?");
-				frameMainMenu.getContentPane().add(msgLbl);
-				CreateUser(usernameField.getText(), pwdField.getText());
-				expenseCalc = new ExpenseCalculator(AllData.get(AllData.size() - 1));
-				expenseCalc.copyInfoToArrayList();
-				expenseCalc.updateBalance();
-				expenseCalc.updateMonthlySavings();
+				User user = new User("","");
+				if (user.checkValidPassword(pwdField.getText())==true) {
+					JOptionPane.showMessageDialog(null, "You logged in!",
+							"", JOptionPane.PLAIN_MESSAGE);
+					frameMainMenu.setVisible(true);
+					frameLogin.setVisible(false);
+					msgLbl.setText("Welcome " + usernameField.getText() + "! What would you like to do?");
+					frameMainMenu.getContentPane().add(msgLbl);
+					CreateUser(usernameField.getText(), pwdField.getText());
+					expenseCalc = new ExpenseCalculator(AllData.get(AllData.size() - 1));
+					expenseCalc.copyInfoToArrayList();
+					expenseCalc.updateBalance();
+					expenseCalc.updateMonthlySavings();
+				}
+				else {
+					JOptionPane.showMessageDialog(null, "The password should contain 8-12 alphanumeric characters, including symbols",
+							"", JOptionPane.PLAIN_MESSAGE);
+				}
+				
 
 			}
 		});
@@ -391,33 +392,34 @@ public class EWalletApplication {
 		// when addExp is pressed do the following
 		loadFileBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
 				JFileChooser openFileChooser = new JFileChooser();
 				openFileChooser.setCurrentDirectory(new File("c:\\Desktop"));
-				openFileChooser.setFileFilter(new FileNameExtensionFilter("TXT","txt"));
+				openFileChooser.setFileFilter(new FileNameExtensionFilter("TXT", "txt"));
 
 				int returnValue = openFileChooser.showOpenDialog(null);
 
 				if (returnValue == JFileChooser.APPROVE_OPTION) {
 					File selectedFile = openFileChooser.getSelectedFile();
-					//System.out.println(selectedFile.getAbsolutePath());
+					// System.out.println(selectedFile.getAbsolutePath());
 					frameFiLoaded.setVisible(true);
-					//msgLbl.setText("File Loaded Successfully");
+					// msgLbl.setText("File Loaded Successfully");
 					frameFiLoaded.getContentPane().add(msgLbl);
-					 try{  
-					        BufferedReader br=new BufferedReader(new FileReader(selectedFile));    
-					        String s1="",s2="";                         
-					        while((s1=br.readLine())!=null){    
-					        s2+=s1+"\n";    
-					        }    
-					        
-					        msgLbl.setText("<html> File Loaded , Here is your expenses loaded : <html>" +s2);   
-					        br.close();  
-					        
-					        }catch (Exception ex) {ex.printStackTrace();  }
+					try {
+						BufferedReader br = new BufferedReader(new FileReader(selectedFile));
+						String s1 = "", s2 = "";
+						while ((s1 = br.readLine()) != null) {
+							s2 += s1 + "\n";
+						}
+
+						msgLbl.setText("<html> File Loaded , Here is your expenses loaded : <html>" + s2);
+						br.close();
+
+					} catch (Exception ex) {
+						ex.printStackTrace();
+					}
 				}
-				 
-				
+
 			}
 
 		});
@@ -447,71 +449,65 @@ public class EWalletApplication {
 			}
 		});
 
-		
-		//when addInc is pressed do the following
+		// when addInc is pressed do the following
 		addInc.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frameAddIncome.setVisible(true);
-				msgLbl.setText("<html>Please add the source (Salary, Rental Income, CashBack, Gift or Other) and amount of your income.<html>");
+				msgLbl.setText(
+						"<html>Please add the source (Salary, Rental Income, CashBack, Gift or Other) and amount of your income.<html>");
 				frameAddIncome.getContentPane().add(msgLbl);
 				expenseCalc = new ExpenseCalculator(AllData.get(AllData.size() - 1));
-		}
+			}
 		});
-		
-		
-		//when detailIncReport is pressed do the following 
+
+		// when detailIncReport is pressed do the following
 		detailIncReport.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				FrameDetailIncReport.setVisible(true);
-		        FrameDetailIncReport.add(IncDetReportLabel);
+				FrameDetailIncReport.add(IncDetReportLabel);
 				msgLbl.setText("<html>Please select the type of income your want to view. <html>");
 				FrameDetailIncReport.getContentPane().add(msgLbl);
-				
-				//creating the list to pick from 
-		        String[] IncOptionsToChoose = {"Salary", "Rental Income", "CashBack", "Gift", "Other"};
-		        //setting up the box and button
-		        JComboBox<String> IncDropDown = new JComboBox<>(IncOptionsToChoose);
-		        IncDropDown.setBounds(80, 50, 140, 20);
-		        JButton IncReportDoneBtn = new JButton("Done");
-		        IncReportDoneBtn.setBounds(100, 100, 90, 20);
-		        FrameDetailIncReport.add(IncReportDoneBtn);
-		        FrameDetailIncReport.add(IncDropDown);
 
-		        //when detailed report is clicked 
-		        IncReportDoneBtn.addActionListener(new ActionListener() {
-		            @Override
-		            public void actionPerformed(ActionEvent e) {
-		               String IncReport = IncDropDown.getItemAt(IncDropDown.getSelectedIndex());
-		              IncDetReportLabel.setText(expenseCalc.PrintIncomereportbyTpe(IncReport));
-		              
-		            }
-		        });
-		        
-		
-			
+				// creating the list to pick from
+				String[] IncOptionsToChoose = { "Salary", "Rental Income", "CashBack", "Gift", "Other" };
+				// setting up the box and button
+				JComboBox<String> IncDropDown = new JComboBox<>(IncOptionsToChoose);
+				IncDropDown.setBounds(80, 50, 140, 20);
+				JButton IncReportDoneBtn = new JButton("Done");
+				IncReportDoneBtn.setBounds(100, 100, 90, 20);
+				FrameDetailIncReport.add(IncReportDoneBtn);
+				FrameDetailIncReport.add(IncDropDown);
+
+				// when detailed report is clicked
+				IncReportDoneBtn.addActionListener(new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						String IncReport = IncDropDown.getItemAt(IncDropDown.getSelectedIndex());
+						IncDetReportLabel.setText(expenseCalc.PrintIncomereportbyTpe(IncReport));
+
+					}
+				});
+
 				Wage wage = new Wage(incSourceField.getText(), Double.parseDouble(incAmountField.getText()));
 				expenseCalc.addMonthlyIncome(wage);
 				frameAddIncome.setVisible(false);
 				expenseCalc.updateMonthlySavings();
-	
+
 			}
-		});	
-		
-		
-		//when incEnter is pressed do the following
+		});
+
+		// when incEnter is pressed do the following
 		incEnter.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                Wage wage = new Wage(incSourceField.getText(), Double.parseDouble(incAmountField.getText()));
-                expenseCalc.addMonthlyIncome(wage);
-                frameAddIncome.setVisible(false);
-                expenseCalc.updateMonthlySavings();
-                expenseCalc.updateBalance();
-                expenseCalc.updateMonthlySavings();
-                expenseCalc.copyInfoToTextFiles();
-            }
-        });
-
-
+			public void actionPerformed(ActionEvent e) {
+				Wage wage = new Wage(incSourceField.getText(), Double.parseDouble(incAmountField.getText()));
+				expenseCalc.addMonthlyIncome(wage);
+				frameAddIncome.setVisible(false);
+				expenseCalc.updateMonthlySavings();
+				expenseCalc.updateBalance();
+				expenseCalc.updateMonthlySavings();
+				expenseCalc.copyInfoToTextFiles();
+			}
+		});
 
 		// when incReport is pressed do the following
 		incReport.addActionListener(new ActionListener() {
@@ -522,7 +518,6 @@ public class EWalletApplication {
 				frameAddIncome.setVisible(false);
 			}
 		});
-		
 
 		// when buttonConvertToEuros is pressed do the following
 		buttonConvertToEuros.addActionListener(new ActionListener() {
@@ -569,36 +564,37 @@ public class EWalletApplication {
 			}
 		});
 
-    //when detailExpReport is pressed do the following 
+		// when detailExpReport is pressed do the following
 		detailExpReport.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent e) {
-		FrameDetailExpReport.setVisible(true);
-		FrameDetailExpReport.add(expDetReportLabel);
-			msgLbl.setText("<html>Please select the type of Expense you want to view. <html>");
-		FrameDetailExpReport.getContentPane().add(msgLbl);
-										
-		//creating the list to pick from 
-		String[] expOptionsToChoose = {"Rent", "Groceries", "Utilities", "Insurance", "Other"};
-		//setting up the box and button
-		JComboBox<String> expDropDown = new JComboBox<>(expOptionsToChoose);
-	    expDropDown.setBounds(80, 50, 140, 20);
-		JButton expReportDoneBtn = new JButton("Done");
-		expReportDoneBtn.setBounds(100, 100, 90, 20);
-		FrameDetailExpReport.add(expReportDoneBtn);
-		FrameDetailExpReport.add(expDropDown);
+			public void actionPerformed(ActionEvent e) {
+				FrameDetailExpReport.setVisible(true);
+				FrameDetailExpReport.add(expDetReportLabel);
+				msgLbl.setText("<html>Please select the type of Expense you want to view. <html>");
+				FrameDetailExpReport.getContentPane().add(msgLbl);
 
-		//when detailed report is clicked 
-		expReportDoneBtn.addActionListener(new ActionListener() {
-		@Override
-		public void actionPerformed(ActionEvent e) {
-		String expReport = expDropDown.getItemAt(expDropDown.getSelectedIndex());
-		expDetReportLabel.setText(expenseCalc.PrintExpensebyType(expReport));
-				}
-			});
+				// creating the list to pick from
+				String[] expOptionsToChoose = { "Rent", "Groceries", "Utilities", "Insurance", "Other" };
+				// setting up the box and button
+				JComboBox<String> expDropDown = new JComboBox<>(expOptionsToChoose);
+				expDropDown.setBounds(80, 50, 140, 20);
+				JButton expReportDoneBtn = new JButton("Done");
+				expReportDoneBtn.setBounds(100, 100, 90, 20);
+				FrameDetailExpReport.add(expReportDoneBtn);
+				FrameDetailExpReport.add(expDropDown);
+
+				// when detailed report is clicked
+				expReportDoneBtn.addActionListener(new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						String expReport = expDropDown.getItemAt(expDropDown.getSelectedIndex());
+						expDetReportLabel.setText(expenseCalc.PrintExpensebyType(expReport));
+					}
+				});
 
 			}
 		});
-	 }
+	}
+
 	// method to create user
 	public void CreateUser(String username, String password) {
 		User newUser = new User(username, password);

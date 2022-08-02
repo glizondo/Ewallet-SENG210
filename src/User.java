@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 public class User {
 	ArrayList<Currency> currencyRates = new ArrayList<Currency>();
@@ -34,6 +35,20 @@ public class User {
 
 	public void setMonthlysavings(double monthlysavings) {
 		this.monthlysavings = monthlysavings;
+	}
+	
+
+
+	public boolean checkValidPassword(String regexEntered) {
+		boolean isValid;
+		String regex;
+		regex = "^([\\w\\d\\S]){8,12}$";
+//		regex = "^([\\w\\d]){6,8}$";
+		if (!Pattern.matches(regex, regexEntered)) {
+			return false;
+		}
+
+		return true;
 	}
 	
 	
