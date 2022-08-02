@@ -386,6 +386,7 @@ public class EWalletApplication {
 		loginBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				User user = new User("", "");
+//				Checks the username contains between 6-8 alphanumeric characters and password contains between 8-12 alphanumeric characters including symbols
 				if (user.checkValidPassword(pwdField.getText()) == true
 						&& user.checkRegexUsername(usernameField.getText()) == true) {
 					frameHint.setVisible(false);
@@ -404,9 +405,7 @@ public class EWalletApplication {
 					JOptionPane.showMessageDialog(null,
 							"The username should contain 6-8 alphanumeric characters and the password should contain 8-12 alphanumeric characters, including symbols",
 							"", JOptionPane.PLAIN_MESSAGE);
-				}
-
-				else if (user.checkRegexUsername(usernameField.getText()) == false) {
+				} else if (user.checkRegexUsername(usernameField.getText()) == false) {
 					JOptionPane.showMessageDialog(null, "The username should contain 6-8 alphanumeric characters", "",
 							JOptionPane.PLAIN_MESSAGE);
 				} else if (user.checkValidPassword(pwdField.getText()) == false) {
@@ -414,7 +413,6 @@ public class EWalletApplication {
 							"The password should contain 8-12 alphanumeric characters, including symbols", "",
 							JOptionPane.PLAIN_MESSAGE);
 				}
-
 			}
 		});
 		// when goBackToLogin is clicked
