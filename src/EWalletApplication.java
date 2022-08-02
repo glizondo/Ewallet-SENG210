@@ -102,7 +102,7 @@ public class EWalletApplication {
 		frameLogin.setTitle("Login");
 		frameLogin.setBounds(100, 100, 475, 300);
 		frameLogin.getContentPane().setLayout(null);
-		
+
 		// frame for hint
 		frameHint = new JFrame();
 		frameHint.getContentPane().setFont(new Font("Perpetua", Font.PLAIN, 11));
@@ -176,14 +176,13 @@ public class EWalletApplication {
 		msgLbl.setBounds(10, 0, 414, 261);
 		frameLogin.getContentPane().add(msgLbl);
 
-		//hintmsgLbl
+		// hintmsgLbl
 		hintmsgLbl = new JLabel("Here is your hint for your log in page");
 		hintmsgLbl.setVerticalAlignment(SwingConstants.TOP);
 		hintmsgLbl.setFont(new Font("Yu Gothic UI Semibold", Font.BOLD, 13));
 		hintmsgLbl.setBounds(40, 65, 414, 261);
 		frameHint.getContentPane().add(hintmsgLbl);
 
-		
 		// creating the username field
 		usernameField = new JTextField();
 		usernameField.setText("username");
@@ -203,15 +202,15 @@ public class EWalletApplication {
 		loginBtn.setFont(new Font("Stencil", Font.PLAIN, 15));
 		loginBtn.setBounds(360, 219, 89, 31);
 		frameLogin.getContentPane().add(loginBtn);
-		
-		// creating goBackToLogin 
+
+		// creating goBackToLogin
 		goBackToLogin = new JButton("go back to log in");
 		goBackToLogin.setFont(new Font("Stencil", Font.PLAIN, 15));
 		goBackToLogin.setBounds(200, 219, 200, 31);
 		frameHint.getContentPane().add(goBackToLogin);
-		
-		//creating the load file button 
-		//loadFileBtn
+
+		// creating the load file button
+		// loadFileBtn
 
 		// creating the load file button
 		// loadFileBtn
@@ -219,8 +218,8 @@ public class EWalletApplication {
 		loadFileBtn.setFont(new Font("Perpetua", Font.PLAIN, 15));
 		loadFileBtn.setBounds(20, 195, 107, 31); // (20, 145, 107, 31);
 		frameMainMenu.getContentPane().add(loadFileBtn);
-		
-		// creating the hintBtn //took from log in btn frame 
+
+		// creating the hintBtn //took from log in btn frame
 		hintBtn = new JButton("Forgot Log In?");
 		hintBtn.setFont(new Font("Stencil", Font.PLAIN, 9));
 		hintBtn.setBounds(160, 160, 110, 28);
@@ -385,12 +384,12 @@ public class EWalletApplication {
 
 		// when loginBtn is pressed do the following
 		loginBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {        
-				User user = new User("","");
-				if (user.checkValidPassword(pwdField.getText())==true) {   
-        frameHint.setVisible(false);
-					JOptionPane.showMessageDialog(null, "You logged in!",
-							"", JOptionPane.PLAIN_MESSAGE);
+			public void actionPerformed(ActionEvent e) {
+				User user = new User("", "");
+				if (user.checkValidPassword(pwdField.getText()) == true
+						&& user.checkRegexUsername(usernameField.getText()) == true) {
+					frameHint.setVisible(false);
+					JOptionPane.showMessageDialog(null, "You logged in!", "", JOptionPane.PLAIN_MESSAGE);
 					frameMainMenu.setVisible(true);
 					frameLogin.setVisible(false);
 					msgLbl.setText("Welcome " + usernameField.getText() + "! What would you like to do?");
@@ -400,15 +399,25 @@ public class EWalletApplication {
 					expenseCalc.copyInfoToArrayList();
 					expenseCalc.updateBalance();
 					expenseCalc.updateMonthlySavings();
-				}
-				else {
-					JOptionPane.showMessageDialog(null, "The password should contain 8-12 alphanumeric characters, including symbols",
+				} else if (user.checkRegexUsername(usernameField.getText()) == false
+						&& user.checkValidPassword(pwdField.getText()) == false) {
+					JOptionPane.showMessageDialog(null,
+							"The username should contain 6-8 alphanumeric characters and the password should contain 8-12 alphanumeric characters, including symbols",
 							"", JOptionPane.PLAIN_MESSAGE);
 				}
-				
+
+				else if (user.checkRegexUsername(usernameField.getText()) == false) {
+					JOptionPane.showMessageDialog(null, "The username should contain 6-8 alphanumeric characters", "",
+							JOptionPane.PLAIN_MESSAGE);
+				} else if (user.checkValidPassword(pwdField.getText()) == false) {
+					JOptionPane.showMessageDialog(null,
+							"The password should contain 8-12 alphanumeric characters, including symbols", "",
+							JOptionPane.PLAIN_MESSAGE);
+				}
+
 			}
 		});
-		//when goBackToLogin is clicked 
+		// when goBackToLogin is clicked
 		goBackToLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frameHint.setVisible(false);
@@ -417,18 +426,18 @@ public class EWalletApplication {
 				hintmsgLbl.setText("Using your hint, try to log in again");
 				frameLogin.getContentPane().add(hintmsgLbl);
 				msgLbl.setText("");
-				
+
 			}
 		});
-		
-	//when hintBtn is pressed do the following
+
+		// when hintBtn is pressed do the following
 		hintBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frameHint.setVisible(true);
 				frameMainMenu.setVisible(false);
 				frameLogin.setVisible(false);
 				frameHint.getContentPane().add(hintmsgLbl);
-				
+
 			}
 		});
 
