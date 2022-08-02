@@ -1,11 +1,8 @@
 import java.awt.EventQueue;
 import java.util.ArrayList;
-
 import javax.swing.JFrame;
-
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-
 import java.awt.Font;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
@@ -25,6 +22,7 @@ import javax.swing.JRadioButton;
 public class EWalletApplication {
 
 	private JFrame frameLogin;
+	private JFrame frameHint;
 	private JFrame frameMainMenu;
 	private JFrame frameAddExpense;
 	private JFrame frameAddIncome;
@@ -36,6 +34,7 @@ public class EWalletApplication {
 	private ArrayList<User> AllData = new ArrayList<User>();
 	private ExpenseCalculator expenseCalc;
 	private JLabel msgLbl;
+	private JLabel hintmsgLbl;
 	private JLabel IncDetReportLabel;
 	private JLabel expDetReportLabel;
 	private JTextField usernameField;
@@ -51,12 +50,14 @@ public class EWalletApplication {
 	private JButton expEnter;
 	private JButton expReport;
 	private JButton addInc;
+	private JButton goBackToLogin;
 	private JTextField incSourceField;
 	private JTextField incAmountField;
 	private JLabel incSourceLbl;
 	private JLabel incAmountLbl;
 	private JButton incEnter;
 	private JButton incReport;
+	private JButton hintBtn;
 	private JLabel labelCurrentBalance;
 	private JTextField textFieldCurrentBalance;
 	private JButton buttonConvertToDollars;
@@ -101,6 +102,13 @@ public class EWalletApplication {
 		frameLogin.setTitle("Login");
 		frameLogin.setBounds(100, 100, 475, 300);
 		frameLogin.getContentPane().setLayout(null);
+		
+		// frame for hint
+		frameHint = new JFrame();
+		frameHint.getContentPane().setFont(new Font("Perpetua", Font.PLAIN, 11));
+		frameHint.setTitle("Hint Page");
+		frameHint.setBounds(100, 100, 475, 300);
+		frameHint.getContentPane().setLayout(null);
 
 		// frame for the main menu where the user can add expenses, incomes and check
 		// balance
@@ -168,6 +176,14 @@ public class EWalletApplication {
 		msgLbl.setBounds(10, 0, 414, 261);
 		frameLogin.getContentPane().add(msgLbl);
 
+		//hintmsgLbl
+		hintmsgLbl = new JLabel("Here is your hint for your log in page");
+		hintmsgLbl.setVerticalAlignment(SwingConstants.TOP);
+		hintmsgLbl.setFont(new Font("Yu Gothic UI Semibold", Font.BOLD, 13));
+		hintmsgLbl.setBounds(40, 65, 414, 261);
+		frameHint.getContentPane().add(hintmsgLbl);
+
+		
 		// creating the username field
 		usernameField = new JTextField();
 		usernameField.setText("username");
@@ -187,6 +203,15 @@ public class EWalletApplication {
 		loginBtn.setFont(new Font("Stencil", Font.PLAIN, 15));
 		loginBtn.setBounds(360, 219, 89, 31);
 		frameLogin.getContentPane().add(loginBtn);
+		
+		// creating goBackToLogin 
+		goBackToLogin = new JButton("go back to log in");
+		goBackToLogin.setFont(new Font("Stencil", Font.PLAIN, 15));
+		goBackToLogin.setBounds(200, 219, 200, 31);
+		frameHint.getContentPane().add(goBackToLogin);
+		
+		//creating the load file button 
+		//loadFileBtn
 
 		// creating the load file button
 		// loadFileBtn
@@ -194,6 +219,12 @@ public class EWalletApplication {
 		loadFileBtn.setFont(new Font("Perpetua", Font.PLAIN, 15));
 		loadFileBtn.setBounds(20, 195, 107, 31); // (20, 145, 107, 31);
 		frameMainMenu.getContentPane().add(loadFileBtn);
+		
+		// creating the hintBtn //took from log in btn frame 
+		hintBtn = new JButton("Forgot Log In?");
+		hintBtn.setFont(new Font("Stencil", Font.PLAIN, 9));
+		hintBtn.setBounds(160, 160, 110, 28);
+		frameLogin.getContentPane().add(hintBtn);
 
 		// creating the current balance label
 		labelCurrentBalance = new JLabel("Current Balance");
@@ -354,9 +385,10 @@ public class EWalletApplication {
 
 		// when loginBtn is pressed do the following
 		loginBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent e) {        
 				User user = new User("","");
-				if (user.checkValidPassword(pwdField.getText())==true) {
+				if (user.checkValidPassword(pwdField.getText())==true) {   
+        frameHint.setVisible(false);
 					JOptionPane.showMessageDialog(null, "You logged in!",
 							"", JOptionPane.PLAIN_MESSAGE);
 					frameMainMenu.setVisible(true);
@@ -374,7 +406,29 @@ public class EWalletApplication {
 							"", JOptionPane.PLAIN_MESSAGE);
 				}
 				
-
+			}
+		});
+		//when goBackToLogin is clicked 
+		goBackToLogin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frameHint.setVisible(false);
+				frameMainMenu.setVisible(false);
+				frameLogin.setVisible(true);
+				hintmsgLbl.setText("Using your hint, try to log in again");
+				frameLogin.getContentPane().add(hintmsgLbl);
+				msgLbl.setText("");
+				
+			}
+		});
+		
+	//when hintBtn is pressed do the following
+		hintBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frameHint.setVisible(true);
+				frameMainMenu.setVisible(false);
+				frameLogin.setVisible(false);
+				frameHint.getContentPane().add(hintmsgLbl);
+				
 			}
 		});
 
