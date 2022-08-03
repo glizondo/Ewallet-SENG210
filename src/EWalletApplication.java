@@ -8,8 +8,15 @@ import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.swing.JTextField;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -67,6 +74,7 @@ public class EWalletApplication {
 	private JButton detailExpReport;
 	private User user;
 	private JButton loadFileBtn;
+	private JButton exportExpReport;
 
 	/**
 	 * Launch the application.
@@ -86,15 +94,17 @@ public class EWalletApplication {
 
 	/**
 	 * Create the application.
+	 * @throws FileNotFoundException 
 	 */
-	public EWalletApplication() {
+	public EWalletApplication() throws FileNotFoundException {
 		initialize();
 	}
 
 	/**
 	 * Initialize the contents of the frameLogin.
+	 * @throws FileNotFoundException 
 	 */
-	private void initialize() {
+	private void initialize() throws FileNotFoundException {
 
 		// frame for login with credentials. Closes after being logged in
 		frameLogin = new JFrame();
@@ -140,14 +150,13 @@ public class EWalletApplication {
 		frameAddIncome.setTitle("Incomes");
 		frameAddIncome.setBounds(100, 100, 485, 300);
 		frameAddIncome.getContentPane().setLayout(null);
-
 		// frame for expense report
 		frameExpReport = new JFrame();
 		frameExpReport.getContentPane().setFont(new Font("Perpetua", Font.PLAIN, 11));
 		frameExpReport.setTitle("Expense Report");
 		frameExpReport.setBounds(100, 100, 485, 300);
 		frameExpReport.getContentPane().setLayout(null);
-
+		
 		// frame for income report
 		frameIncReport = new JFrame();
 		frameIncReport.getContentPane().setFont(new Font("Perpetua", Font.PLAIN, 11));
@@ -168,7 +177,7 @@ public class EWalletApplication {
 		FrameDetailExpReport.setTitle("Expense Report");
 		FrameDetailExpReport.setBounds(100, 100, 485, 300);
 		FrameDetailExpReport.getContentPane().setLayout(null);
-
+		
 		// creating the dynamic message label
 		msgLbl = new JLabel("Welcome to EWallet! Please create a user.");
 		msgLbl.setVerticalAlignment(SwingConstants.TOP);
@@ -381,6 +390,14 @@ public class EWalletApplication {
 		expDetReportLabel = new JLabel("");
 		expDetReportLabel.setVerticalAlignment(SwingConstants.TOP);
 		expDetReportLabel.setBounds(10, 170, 400, 100);
+		
+		// creating the button to export an expense report to a csv
+		exportExpReport = new JButton("Export to CSV");
+		exportExpReport.setFont(new Font("Stencil", Font.PLAIN, 16));
+		exportExpReport.setBounds(302, 225, 157, 25);
+		frameExpReport.getContentPane().add(exportExpReport);
+		
+		// creating the button to export an income report to a csv
 
 		// when loginBtn is pressed do the following
 		loginBtn.addActionListener(new ActionListener() {
@@ -525,7 +542,7 @@ public class EWalletApplication {
 		detailIncReport.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				FrameDetailIncReport.setVisible(true);
-				FrameDetailIncReport.add(IncDetReportLabel);
+				FrameDetailIncReport.getContentPane().add(IncDetReportLabel);
 				msgLbl.setText("<html>Please select the type of income your want to view. <html>");
 				FrameDetailIncReport.getContentPane().add(msgLbl);
 
@@ -536,8 +553,8 @@ public class EWalletApplication {
 				IncDropDown.setBounds(80, 50, 140, 20);
 				JButton IncReportDoneBtn = new JButton("Done");
 				IncReportDoneBtn.setBounds(100, 100, 90, 20);
-				FrameDetailIncReport.add(IncReportDoneBtn);
-				FrameDetailIncReport.add(IncDropDown);
+				FrameDetailIncReport.getContentPane().add(IncReportDoneBtn);
+				FrameDetailIncReport.getContentPane().add(IncDropDown);
 
 				// when detailed report is clicked
 				IncReportDoneBtn.addActionListener(new ActionListener() {
@@ -629,7 +646,7 @@ public class EWalletApplication {
 		detailExpReport.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				FrameDetailExpReport.setVisible(true);
-				FrameDetailExpReport.add(expDetReportLabel);
+				FrameDetailExpReport.getContentPane().add(expDetReportLabel);
 				msgLbl.setText("<html>Please select the type of Expense you want to view. <html>");
 				FrameDetailExpReport.getContentPane().add(msgLbl);
 
@@ -640,8 +657,8 @@ public class EWalletApplication {
 				expDropDown.setBounds(80, 50, 140, 20);
 				JButton expReportDoneBtn = new JButton("Done");
 				expReportDoneBtn.setBounds(100, 100, 90, 20);
-				FrameDetailExpReport.add(expReportDoneBtn);
-				FrameDetailExpReport.add(expDropDown);
+				FrameDetailExpReport.getContentPane().add(expReportDoneBtn);
+				FrameDetailExpReport.getContentPane().add(expDropDown);
 
 				// when detailed report is clicked
 				expReportDoneBtn.addActionListener(new ActionListener() {
@@ -654,7 +671,29 @@ public class EWalletApplication {
 
 			}
 		});
+		
+		// when exportExpReport is pressed do the following
+		
+		
+		exportExpReport.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				FileOutputStream expReportStream = null;
+				try {
+					expReportStream = new FileOutputStream("expensereport.csv");
+				} catch (FileNotFoundException e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+				}
+				PrintWriter pw = new PrintWriter(expReportStream);
+				
+				for (Expense exp: user.Spending) {
+					pw.println(exp.source + ", " + exp.getAmount() + ", " + exp.getYearlyfrequency() + "\n" );
+				}
+				pw.close();
+			}
+		});	
 	}
+	
 
 	// method to create user
 	public void CreateUser(String username, String password) {
