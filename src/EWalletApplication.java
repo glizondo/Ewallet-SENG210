@@ -74,6 +74,7 @@ public class EWalletApplication {
 	private JButton loadFileBtn;
 	private static String dbURLembedded = "jdbc:derby:C:\\Users\\Guillermo\\eclipse-workspace\\Ewallet-SENG210\\DatabaseEwallet";
 	private static String userTable = "USERS";
+	private static String wageTable = "WAGES";
 	private static Connection conn = null;
 	private static Statement stmt = null;
 
@@ -690,15 +691,25 @@ public class EWalletApplication {
 	private static void insertNewUser(int userID, String username, String password) {
 		try {
 			stmt = conn.createStatement();
-			 stmt.execute("insert into " + userTable + " values (" +
-					 userID + ",'" + username + "','" + password +"')");
-	            stmt.close();
+			stmt.execute("insert into " + userTable + " values (" + userID + ",'" + username + "','" + password + "')");
+			stmt.close();
 			System.out.println("User created successfully");
 		} catch (SQLException sqlExcept) {
 			sqlExcept.printStackTrace();
 		}
 	}
-	
+
+	private static void insertNewWage(int wageID, String source, Double amount) {
+		try {
+			stmt = conn.createStatement();
+			stmt.execute("insert into " + wageTable + " values (" + wageID + ",'" + source + "','" + amount + "')");
+			stmt.close();
+			System.out.println("User created successfully");
+		} catch (SQLException sqlExcept) {
+			sqlExcept.printStackTrace();
+		}
+	}
+
 	private static void shutdown() {
 		try {
 			if (stmt != null) {
