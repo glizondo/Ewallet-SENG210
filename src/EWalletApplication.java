@@ -10,6 +10,10 @@ import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 import javax.swing.JTextField;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -67,6 +71,10 @@ public class EWalletApplication {
 	private JButton detailExpReport;
 	private User user;
 	private JButton loadFileBtn;
+	private static String dbURLembedded = "jdbc:derby:C:\\Users\\Guillermo\\MyDB";
+	private static String userTable = "USER";
+	private static Connection conn = null;
+	private static Statement stmt = null;
 
 	/**
 	 * Launch the application.
@@ -381,6 +389,8 @@ public class EWalletApplication {
 		expDetReportLabel = new JLabel("");
 		expDetReportLabel.setVerticalAlignment(SwingConstants.TOP);
 		expDetReportLabel.setBounds(10, 170, 400, 100);
+		
+		insertNewUser("user001", userTable, dbURLembedded);
 
 		// when loginBtn is pressed do the following
 		loginBtn.addActionListener(new ActionListener() {
@@ -660,5 +670,16 @@ public class EWalletApplication {
 	public void CreateUser(String username, String password) {
 		User newUser = new User(username, password);
 		AllData.add(newUser);
+	}
+
+	private static void insertNewUser(String userID, String username, String password) {
+		try {
+			stmt = conn.createStatement();
+			stmt.execute("insert into " + userTable + " values ('" + userID + "','" + username + "'," + password + ")");
+			stmt.close();
+			System.out.println("User created successfully");
+		} catch (SQLException sqlExcept) {
+			sqlExcept.printStackTrace();
+		}
 	}
 }
