@@ -11,6 +11,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -71,8 +72,8 @@ public class EWalletApplication {
 	private JButton detailExpReport;
 	private User user;
 	private JButton loadFileBtn;
-	private static String dbURLembedded = "jdbc:derby:C:\\Users\\Guillermo\\MyDB";
-	private static String userTable = "USER";
+	private static String dbURLembedded = "jdbc:derby:C:\\Users\\Guillermo\\eclipse-workspace\\Ewallet-SENG210\\DatabaseEwallet";
+	private static String userTable = "USERS";
 	private static Connection conn = null;
 	private static Statement stmt = null;
 
@@ -389,8 +390,11 @@ public class EWalletApplication {
 		expDetReportLabel = new JLabel("");
 		expDetReportLabel.setVerticalAlignment(SwingConstants.TOP);
 		expDetReportLabel.setBounds(10, 170, 400, 100);
-		
-		insertNewUser("user001", userTable, dbURLembedded);
+
+//		Database connection
+		createConnection();
+//		insertNewUser(0000000003, "User03", "Password30!");
+		shutdown();
 
 		// when loginBtn is pressed do the following
 		loginBtn.addActionListener(new ActionListener() {
@@ -672,14 +676,41 @@ public class EWalletApplication {
 		AllData.add(newUser);
 	}
 
-	private static void insertNewUser(String userID, String username, String password) {
+	private static void createConnection() {
+		try {
+			Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+			conn = DriverManager.getConnection(dbURLembedded);
+
+		} catch (Exception except) {
+			except.printStackTrace();
+		}
+		System.out.println("Connection created");
+	}
+
+	private static void insertNewUser(int userID, String username, String password) {
 		try {
 			stmt = conn.createStatement();
-			stmt.execute("insert into " + userTable + " values ('" + userID + "','" + username + "'," + password + ")");
-			stmt.close();
+			 stmt.execute("insert into " + userTable + " values (" +
+					 userID + ",'" + username + "','" + password +"')");
+	            stmt.close();
 			System.out.println("User created successfully");
 		} catch (SQLException sqlExcept) {
 			sqlExcept.printStackTrace();
 		}
+	}
+	
+	private static void shutdown() {
+		try {
+			if (stmt != null) {
+				stmt.close();
+			}
+			if (conn != null) {
+				DriverManager.getConnection(dbURLembedded + ";shutdown=true");
+				conn.close();
+			}
+		} catch (SQLException sqlExcept) {
+
+		}
+
 	}
 }
