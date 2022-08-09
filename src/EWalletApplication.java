@@ -13,6 +13,7 @@ import java.io.FileReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -73,8 +74,7 @@ public class EWalletApplication {
 	private JButton detailExpReport;
 	private User user;
 	private JButton loadFileBtn;
-	// private static String dbURLembedded =
-	// "jdbc:derby:C:\\Users\\Guillermo\\eclipse-workspace\\Ewallet-SENG210\\DatabaseEwallet";
+	// private static String dbURLembedded = "jdbc:derby:C:\\Users\\Guillermo\\eclipse-workspace\\Ewallet-SENG210\\DatabaseEwallet";
 	private static String dbURLembedded = "jdbc:derby:c:/Users/Ashley/git/Ewallet-SENG210/DatabaseEwallet";
 
 	private static String userTable = "USERS";
@@ -412,26 +412,38 @@ public class EWalletApplication {
 						&& user.checkRegexUsername(usernameField.getText()) == true) {
 					{
 						////////////////////////////////////////////
-						try {
-							stmt = conn.createStatement();
-							System.out.println("entered the try");
-							ResultSet results = stmt.executeQuery(
-									"SELECT * FROM APP.USERS " + "WHERE USERNAME = ' " + usernameField.getText() + "'");
-							
-							System.out.println("line 419");
+						try        {
+				            stmt = conn.createStatement();
+				           // ResultSet results = stmt.executeQuery("SELECT * FROM APP.USERS " + "WHERE USERNAME = ' " + usernameField.getText() + "'");
+				            ResultSet results = stmt.executeQuery("select * from " + "USERS");
+				            ResultSetMetaData rsmd = results.getMetaData();
+				            int numberCols = rsmd.getColumnCount();
+				            for (int i=1; i<=numberCols; i++)
+				            {
+				                //print Column Names
+				                System.out.print(rsmd.getColumnLabel(i)+"\t\t");  
+				            }
 
-							while (results.next()) {
-								System.out.println("line 423");
-								String usernameid = results.getString(2);
+				            System.out.println("\n-------------------------------------------------");
 
-								if (usernameField.getText().equals(usernameid)) {
+				            while(results.next())
+				            {
+				            	
+				                String userid = results.getString(1);
+				                String username = results.getString(2);
+				                String password = results.getString(3);
+				               
+				                System.out.println( username + "\t\t" + username + "\t\t" +password);
+				                if (usernameField.getText().equals(username)) {
 									System.out.println("it worked");
 								} else {
 									System.out.println(" nope");
 								}
 							}
-							results.close();
-						}
+				            
+				            results.close();
+				            stmt.close();
+				        }
 
 						catch (SQLException e1) {
 							e1.printStackTrace();
