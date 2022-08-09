@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -72,7 +73,10 @@ public class EWalletApplication {
 	private JButton detailExpReport;
 	private User user;
 	private JButton loadFileBtn;
-	private static String dbURLembedded = "jdbc:derby:C:\\Users\\Guillermo\\eclipse-workspace\\Ewallet-SENG210\\DatabaseEwallet";
+	// private static String dbURLembedded =
+	// "jdbc:derby:C:\\Users\\Guillermo\\eclipse-workspace\\Ewallet-SENG210\\DatabaseEwallet";
+	private static String dbURLembedded = "jdbc:derby:c:/Users/Ashley/git/Ewallet-SENG210/DatabaseEwallet";
+
 	private static String userTable = "USERS";
 	private static String wageTable = "WAGES";
 	private static Connection conn = null;
@@ -394,16 +398,48 @@ public class EWalletApplication {
 
 //		Database connection
 		createConnection();
+
 //		insertNewUser(0000000003, "User03", "Password30!");
-		shutdown();
 
 		// when loginBtn is pressed do the following
 		loginBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				User user = new User("", "");
+				// was here
+
 //				Checks the username contains between 6-8 alphanumeric characters and password contains between 8-12 alphanumeric characters including symbols
 				if (user.checkValidPassword(pwdField.getText()) == true
 						&& user.checkRegexUsername(usernameField.getText()) == true) {
+					{
+						////////////////////////////////////////////
+						try {
+							stmt = conn.createStatement();
+							System.out.println("entered the try");
+							ResultSet results = stmt.executeQuery(
+									"SELECT * FROM APP.USERS " + "WHERE USERNAME = ' " + usernameField.getText() + "'");
+							
+							System.out.println("line 419");
+
+							while (results.next()) {
+								System.out.println("line 423");
+								String usernameid = results.getString(2);
+
+								if (usernameField.getText().equals(usernameid)) {
+									System.out.println("it worked");
+								} else {
+									System.out.println(" nope");
+								}
+							}
+							results.close();
+						}
+
+						catch (SQLException e1) {
+							e1.printStackTrace();
+						}
+					}
+
+					//////////////////////////////////////////////////
+
 					frameHint.setVisible(false);
 					JOptionPane.showMessageDialog(null, "You logged in!", "", JOptionPane.PLAIN_MESSAGE);
 					frameMainMenu.setVisible(true);
@@ -415,7 +451,9 @@ public class EWalletApplication {
 					expenseCalc.copyInfoToArrayList();
 					expenseCalc.updateBalance();
 					expenseCalc.updateMonthlySavings();
-				} else if (user.checkRegexUsername(usernameField.getText()) == false
+				}
+
+				else if (user.checkRegexUsername(usernameField.getText()) == false
 						&& user.checkValidPassword(pwdField.getText()) == false) {
 					JOptionPane.showMessageDialog(null,
 							"The username should contain 6-8 alphanumeric characters and the password should contain 8-12 alphanumeric characters, including symbols",
@@ -429,6 +467,7 @@ public class EWalletApplication {
 							JOptionPane.PLAIN_MESSAGE);
 				}
 			}
+
 		});
 		// when goBackToLogin is clicked
 		goBackToLogin.addActionListener(new ActionListener() {
@@ -669,6 +708,7 @@ public class EWalletApplication {
 
 			}
 		});
+		// shutdown(); //closing the db
 	}
 
 	// method to create user
@@ -724,4 +764,5 @@ public class EWalletApplication {
 		}
 
 	}
+
 }
