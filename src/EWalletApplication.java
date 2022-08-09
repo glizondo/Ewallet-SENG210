@@ -406,13 +406,11 @@ public class EWalletApplication {
 		loginBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				User user = new User("", "");
-				// was here
 
 //				Checks the username contains between 6-8 alphanumeric characters and password contains between 8-12 alphanumeric characters including symbols
 				if (user.checkValidPassword(pwdField.getText()) == true
 						&& user.checkRegexUsername(usernameField.getText()) == true) {
 					{
-						////////////////////////////////////////////
 						try        {
 				            stmt = conn.createStatement();
 				           // ResultSet results = stmt.executeQuery("SELECT * FROM APP.USERS " + "WHERE USERNAME = ' " + usernameField.getText() + "'");
@@ -427,10 +425,8 @@ public class EWalletApplication {
 
 				            System.out.println("\n-------------------------------------------------");
 
-				            while(results.next())
+				            if(results.next())
 				            {
-				            	
-				               // String userid = results.getString(1);
 				                String username = results.getString(2);
 				                String password = results.getString(3);
 				               
@@ -448,7 +444,7 @@ public class EWalletApplication {
 									expenseCalc.copyInfoToArrayList();
 									expenseCalc.updateBalance();
 									expenseCalc.updateMonthlySavings();
-								} else {
+								} else if(!usernameField.getText().equals(username) && !pwdField.getText().equals(password) ) {
 									frameHint.setVisible(true);
 									frameMainMenu.setVisible(false);
 									frameLogin.setVisible(false);
@@ -461,15 +457,10 @@ public class EWalletApplication {
 				            results.close();
 				           stmt.close();
 				        }
-
 						catch (SQLException e1) {
 							e1.printStackTrace();
 						}
-					}
-
-					//////////////////////////////////////////////////
-
-
+					}					
 				}
 
 				else if (user.checkRegexUsername(usernameField.getText()) == false
@@ -486,7 +477,7 @@ public class EWalletApplication {
 							JOptionPane.PLAIN_MESSAGE);
 				}
 			}
-
+		
 		});
 		// when goBackToLogin is clicked
 		goBackToLogin.addActionListener(new ActionListener() {
@@ -727,7 +718,7 @@ public class EWalletApplication {
 
 			}
 		});
-		shutdown(); //closing the db
+		
 	}
 
 	// method to create user
