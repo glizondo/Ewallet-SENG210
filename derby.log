@@ -1,0 +1,13 @@
+----------------------------------------------------------------
+Mon Aug 08 15:42:47 EDT 2022:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.9.1.0 - (1344872): instance a816c00e-0182-7efb-2edc-00001ee87ee0 
+on database directory C:\Users\Guillermo\eclipse-workspace\Ewallet-SENG210\DatabaseEwallet  with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@60f82f98 
+Loaded from file:/C:/Users/Guillermo/Derby/db-derby-10.9.1.0-bin/lib/derby.jar
+java.vendor=Eclipse Adoptium
+java.runtime.version=17.0.1+12
+user.dir=C:\Users\Guillermo\eclipse-workspace\Ewallet-SENG210
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''
+----------------------------------------------------------------
+Mon Aug 08 15:42:47 EDT 2022:
+Shutting down instance a816c00e-0182-7efb-2edc-00001ee87ee0 on database directory C:\Users\Guillermo\eclipse-workspace\Ewallet-SENG210\DatabaseEwallet with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@60f82f98 
