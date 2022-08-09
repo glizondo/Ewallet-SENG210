@@ -397,7 +397,7 @@ public class EWalletApplication {
 		expDetReportLabel.setBounds(10, 170, 400, 100);
 
 //		Database connection
-		createConnection();
+		//createConnection();
 		//shutdown();
 
 //		insertNewUser(0000000003, "User03", "Password30!");
@@ -405,6 +405,7 @@ public class EWalletApplication {
 		// when loginBtn is pressed do the following
 		loginBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				createConnection();
 				User user = new User("", "");
 
 //				Checks the username contains between 6-8 alphanumeric characters and password contains between 8-12 alphanumeric characters including symbols
@@ -476,18 +477,22 @@ public class EWalletApplication {
 							"The password should contain 8-12 alphanumeric characters, including symbols", "",
 							JOptionPane.PLAIN_MESSAGE);
 				}
-			}
+				shutdown();
+				}
+			
 		
 		});
 		// when goBackToLogin is clicked
 		goBackToLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				createConnection();
 				frameHint.setVisible(false);
 				frameMainMenu.setVisible(false);
 				frameLogin.setVisible(true);
 				hintmsgLbl.setText("Using your hint, try to log in again");
 				frameLogin.getContentPane().add(hintmsgLbl);
 				msgLbl.setText("");
+				shutdown();
 
 			}
 		});
@@ -495,28 +500,32 @@ public class EWalletApplication {
 		// when hintBtn is pressed do the following
 		hintBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				createConnection();
 				frameHint.setVisible(true);
 				frameMainMenu.setVisible(false);
 				frameLogin.setVisible(false);
 				frameHint.getContentPane().add(hintmsgLbl);
-
+				shutdown();
 			}
 		});
 
 		// when addExp is pressed do the following
 		addExp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				createConnection();
 				frameAddExpense.setVisible(true);
 				msgLbl.setText(
 						"<html>Please add the source, amount and yearly frequency of your Expense. Or you can generate an expense report.<html>");
 				frameAddExpense.getContentPane().add(msgLbl);
 				expenseCalc = new ExpenseCalculator(AllData.get(AllData.size() - 1));
+				shutdown();
 			}
 
 		});
 		// when addExp is pressed do the following
 		loadFileBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				createConnection();
 
 				JFileChooser openFileChooser = new JFileChooser();
 				openFileChooser.setCurrentDirectory(new File("c:\\Desktop"));
@@ -545,13 +554,15 @@ public class EWalletApplication {
 					}
 				}
 
-			}
+				shutdown();
+				}
 
 		});
 
 		// when expEnter is pressed do the following
 		expEnter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				createConnection();
 				Expense expense = new Expense(expSourceField.getText(), Double.parseDouble(expAmountField.getText()),
 						Integer.parseInt(expFreqField.getText()));
 				expenseCalc.addExpense(expense);
@@ -560,34 +571,40 @@ public class EWalletApplication {
 				expenseCalc.updateBalance();
 				expenseCalc.copyInfoToTextFiles();
 
-			}
+				shutdown();
+				}
 
 		});
 
 		// when expReport is pressed do the following
 		expReport.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				createConnection();
 				reportLbl.setText(expenseCalc.PrintExpensereport());
 				frameExpReport.getContentPane().add(reportLbl);
 				frameExpReport.setVisible(true);
 				frameAddExpense.setVisible(false);
-			}
+				shutdown();
+				}
 		});
 
 		// when addInc is pressed do the following
 		addInc.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				createConnection();
 				frameAddIncome.setVisible(true);
 				msgLbl.setText(
 						"<html>Please add the source (Salary, Rental Income, CashBack, Gift or Other) and amount of your income.<html>");
 				frameAddIncome.getContentPane().add(msgLbl);
 				expenseCalc = new ExpenseCalculator(AllData.get(AllData.size() - 1));
-			}
+				shutdown();
+				}
 		});
 
 		// when detailIncReport is pressed do the following
 		detailIncReport.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				createConnection();
 				FrameDetailIncReport.setVisible(true);
 				FrameDetailIncReport.add(IncDetReportLabel);
 				msgLbl.setText("<html>Please select the type of income your want to view. <html>");
@@ -618,12 +635,14 @@ public class EWalletApplication {
 				frameAddIncome.setVisible(false);
 				expenseCalc.updateMonthlySavings();
 
-			}
+				shutdown();
+				}
 		});
 
 		// when incEnter is pressed do the following
 		incEnter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				createConnection();
 				Wage wage = new Wage(incSourceField.getText(), Double.parseDouble(incAmountField.getText()));
 				expenseCalc.addMonthlyIncome(wage);
 				frameAddIncome.setVisible(false);
@@ -631,22 +650,26 @@ public class EWalletApplication {
 				expenseCalc.updateBalance();
 				expenseCalc.updateMonthlySavings();
 				expenseCalc.copyInfoToTextFiles();
-			}
+				shutdown();
+				}
 		});
 
 		// when incReport is pressed do the following
 		incReport.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				createConnection();
 				reportLbl.setText(expenseCalc.PrintIncomereport()); // message
 				frameIncReport.getContentPane().add(reportLbl);
 				frameIncReport.setVisible(true);
 				frameAddIncome.setVisible(false);
+				shutdown();
 			}
 		});
 
 		// when buttonConvertToEuros is pressed do the following
 		buttonConvertToEuros.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				createConnection();
 
 				try {
 					buttonConvertToDollars.setEnabled(true);
@@ -665,6 +688,7 @@ public class EWalletApplication {
 		// when buttonConvertToDollars is pressed do the following
 		buttonConvertToDollars.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				createConnection();
 
 				try {
 					buttonConvertToEuros.setEnabled(true);
@@ -682,16 +706,19 @@ public class EWalletApplication {
 		// when detailedReport is pressed it shows a detailed report
 		detailedReportBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				createConnection();
 				reportLbl.setText(expenseCalc.PrintFullreport());
 				frameIncReport.getContentPane().add(reportLbl);
 				frameIncReport.setVisible(true);
 				frameAddIncome.setVisible(false);
+				shutdown();
 			}
 		});
 
 		// when detailExpReport is pressed do the following
 		detailExpReport.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				createConnection();
 				FrameDetailExpReport.setVisible(true);
 				FrameDetailExpReport.add(expDetReportLabel);
 				msgLbl.setText("<html>Please select the type of Expense you want to view. <html>");
@@ -716,13 +743,14 @@ public class EWalletApplication {
 					}
 				});
 
-			}
+				shutdown();}
 		});
 		
 	}
 
 	// method to create user
 	public void CreateUser(String username, String password) {
+		
 		User newUser = new User(username, password);
 		AllData.add(newUser);
 	}
