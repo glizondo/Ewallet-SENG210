@@ -398,6 +398,7 @@ public class EWalletApplication {
 
 //		Database connection
 		createConnection();
+		//shutdown();
 
 //		insertNewUser(0000000003, "User03", "Password30!");
 
@@ -429,20 +430,36 @@ public class EWalletApplication {
 				            while(results.next())
 				            {
 				            	
-				                String userid = results.getString(1);
+				               // String userid = results.getString(1);
 				                String username = results.getString(2);
 				                String password = results.getString(3);
 				               
 				                System.out.println( username + "\t\t" + username + "\t\t" +password);
-				                if (usernameField.getText().equals(username)) {
+				                if (usernameField.getText().equals(username) && pwdField.getText().equals(password) ) {
 									System.out.println("it worked");
+									frameHint.setVisible(false);
+									JOptionPane.showMessageDialog(null, "You logged in!", "", JOptionPane.PLAIN_MESSAGE);
+									frameMainMenu.setVisible(true);
+									frameLogin.setVisible(false);
+									msgLbl.setText("Welcome " + usernameField.getText() + "! What would you like to do?");
+									frameMainMenu.getContentPane().add(msgLbl);
+									CreateUser(usernameField.getText(), pwdField.getText());
+									expenseCalc = new ExpenseCalculator(AllData.get(AllData.size() - 1));
+									expenseCalc.copyInfoToArrayList();
+									expenseCalc.updateBalance();
+									expenseCalc.updateMonthlySavings();
 								} else {
+									frameHint.setVisible(true);
+									frameMainMenu.setVisible(false);
+									frameLogin.setVisible(false);
+									frameHint.getContentPane().add(hintmsgLbl);
 									System.out.println(" nope");
+									
 								}
 							}
 				            
 				            results.close();
-				            stmt.close();
+				           stmt.close();
 				        }
 
 						catch (SQLException e1) {
@@ -452,17 +469,7 @@ public class EWalletApplication {
 
 					//////////////////////////////////////////////////
 
-					frameHint.setVisible(false);
-					JOptionPane.showMessageDialog(null, "You logged in!", "", JOptionPane.PLAIN_MESSAGE);
-					frameMainMenu.setVisible(true);
-					frameLogin.setVisible(false);
-					msgLbl.setText("Welcome " + usernameField.getText() + "! What would you like to do?");
-					frameMainMenu.getContentPane().add(msgLbl);
-					CreateUser(usernameField.getText(), pwdField.getText());
-					expenseCalc = new ExpenseCalculator(AllData.get(AllData.size() - 1));
-					expenseCalc.copyInfoToArrayList();
-					expenseCalc.updateBalance();
-					expenseCalc.updateMonthlySavings();
+
 				}
 
 				else if (user.checkRegexUsername(usernameField.getText()) == false
@@ -720,7 +727,7 @@ public class EWalletApplication {
 
 			}
 		});
-		// shutdown(); //closing the db
+		shutdown(); //closing the db
 	}
 
 	// method to create user
