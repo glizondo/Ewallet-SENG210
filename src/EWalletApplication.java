@@ -16,7 +16,6 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
-
 import javax.swing.JTextField;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -75,8 +74,11 @@ public class EWalletApplication {
 	private User user;
 	private JButton loadFileBtn;
 	// private static String dbURLembedded = "jdbc:derby:C:\\Users\\Guillermo\\eclipse-workspace\\Ewallet-SENG210\\DatabaseEwallet";
-	private static String dbURLembedded = "jdbc:derby:c:/Users/Ashley/git/Ewallet-SENG210/DatabaseEwallet";
-
+	// private static String dbURLembedded = "jdbc:derby:c:/Users/Ashley/git/Ewallet-SENG210/DatabaseEwallet";
+	private static String dbURLembedded = "jdbc:derby:c:\\Users\\user\\git\\Ewallet-SENG210\\DatabaseEwallet";
+	
+	
+	
 	private static String userTable = "USERS";
 	private static String wageTable = "WAGES";
 	private static Connection conn = null;
@@ -645,8 +647,10 @@ public class EWalletApplication {
 		incEnter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				createConnection();
-				Wage wage = new Wage(incSourceField.getText(), Double.parseDouble(incAmountField.getText()));
+				User user = new User("", "");
+				Wage wage = new Wage(incSourceField.getText(), Double.valueOf(incAmountField.getText()));
 				expenseCalc.addMonthlyIncome(wage);
+				insertNewWage(user.Income.size() + 1, incSourceField.getText(), Double.parseDouble(incAmountField.getText()));
 				frameAddIncome.setVisible(false);
 				expenseCalc.updateMonthlySavings();
 				expenseCalc.updateBalance();
@@ -784,7 +788,7 @@ public class EWalletApplication {
 			stmt = conn.createStatement();
 			stmt.execute("insert into " + wageTable + " values (" + wageID + ",'" + source + "','" + amount + "')");
 			stmt.close();
-			System.out.println("User created successfully");
+			System.out.println("Wage added successfully");
 		} catch (SQLException sqlExcept) {
 			sqlExcept.printStackTrace();
 		}
