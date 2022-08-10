@@ -547,13 +547,40 @@ public class EWalletApplication {
 
 		});
 		//loadIncBtn is income load button 
-		//ExpIncBtn is load expense to 
+		// when loadIncBtn is pressed do the following
+		loadIncBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				createConnection();
+				frameFiLoaded.setVisible(false);
+				frameMainMenu.setVisible(true);
+				
+			      FileWriter myWriter;
+				try {
+					File log = new File("Income.txt");
+					myWriter = new FileWriter(log,true);
+					BufferedWriter bufferedWriter = new BufferedWriter(myWriter);
+					bufferedWriter.write(s2);
+					bufferedWriter.close();			
+					myWriter.close();
+					
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			    JOptionPane.showMessageDialog(null, "You saved to income!", "", JOptionPane.PLAIN_MESSAGE);
+				frameFiLoaded.getContentPane().add(msgLbl);
+				
+				shutdown();
+			}
+
+		});
+
 		// when ExpIncBtn is pressed do the following
 		ExpIncBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				createConnection();
-				frameFiLoaded.setVisible(true);
-				
+				frameFiLoaded.setVisible(false);
+				frameMainMenu.setVisible(true);
 				
 			      FileWriter myWriter;
 				try {
@@ -561,18 +588,14 @@ public class EWalletApplication {
 					myWriter = new FileWriter(log,true);
 					BufferedWriter bufferedWriter = new BufferedWriter(myWriter);
 					bufferedWriter.write(s2);
-					bufferedWriter.close();
-					
+					bufferedWriter.close();			
 					myWriter.close();
-					 //PrintWriter out = new PrintWriter(new FileWriter(log, true));
-					 // out.close();
 					
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				
-			      System.out.println(" wrote to the file.");
+			    JOptionPane.showMessageDialog(null, "You saved to expense!", "", JOptionPane.PLAIN_MESSAGE);
 				frameFiLoaded.getContentPane().add(msgLbl);
 				
 				shutdown();

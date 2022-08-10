@@ -7,3 +7,11 @@ Taxes
 Rent
 23.0
 2
+
+Rent
+200.0
+12
+Taxes
+110.0
+12
+
