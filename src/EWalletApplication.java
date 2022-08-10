@@ -76,9 +76,15 @@ public class EWalletApplication {
 	private JButton loadFileBtn;
 	// private static String dbURLembedded = "jdbc:derby:C:\\Users\\Guillermo\\eclipse-workspace\\Ewallet-SENG210\\DatabaseEwallet";
 	//private static String dbURLembedded = "jdbc:derby:c:/Users/Ashley/git/Ewallet-SENG210/DatabaseEwallet";
+<<<<<<< HEAD
+	private static String dbURLembedded = "jdbc:derby:C:\\Users\\Maddy\\eclipse-workspace\\EWallet\\Ewallet-SENG210\\DatabaseEwallet";
+	
+=======
 	private static String dbURLembedded = "jdbc:derby:C:\\Users\\Maddy\\eclipse-workspace\\Ewallet\\DatabaseEwallet";
+>>>>>>> ed8fac11e0fbc40ede5d2ad573fe33cb25169277
 	private static String userTable = "USERS";
 	private static String wageTable = "WAGES";
+	private static String expenseTable = "EXPENSES";
 	private static Connection conn = null;
 	private static Statement stmt = null;
 
@@ -421,17 +427,17 @@ public class EWalletApplication {
 				            for (int i=1; i<=numberCols; i++)
 				            {
 				                //print Column Names
-				               // System.out.print(rsmd.getColumnLabel(i)+"\t\t");  
+				                System.out.print(rsmd.getColumnLabel(i)+"\t\t");  
 				            }
 
-				            //System.out.println("\n-------------------------------------------------");
+				            System.out.println("\n-------------------------------------------------");
 
 				            if(results.next())
 				            {
 				                String username = results.getString(2);
 				                String password = results.getString(3);
 				               
-				                //System.out.println( username + "\t\t" + username + "\t\t" +password);
+				                System.out.println( username + "\t\t" + username + "\t\t" +password);
 				                if (usernameField.getText().equals(username) && pwdField.getText().equals(password) ) {
 									//System.out.println("it worked");
 									frameHint.setVisible(false);
@@ -445,7 +451,7 @@ public class EWalletApplication {
 									expenseCalc.copyInfoToArrayList();
 									expenseCalc.updateBalance();
 									expenseCalc.updateMonthlySavings();
-								} else if(!usernameField.getText().equals(username) && !pwdField.getText().equals(password) ) {
+								} else if(!usernameField.getText().equals(username) || !pwdField.getText().equals(password) ) {
 									frameHint.setVisible(true);
 									frameMainMenu.setVisible(false);
 									frameLogin.setVisible(false);
@@ -783,6 +789,18 @@ public class EWalletApplication {
 		try {
 			stmt = conn.createStatement();
 			stmt.execute("insert into " + wageTable + " values (" + wageID + ",'" + source + "','" + amount + "')");
+			stmt.close();
+			System.out.println("User created successfully");
+		} catch (SQLException sqlExcept) {
+			sqlExcept.printStackTrace();
+		}
+	}
+	
+	private static void insertNewExpense(int ExpenseID, String FirstName, String LastName) {
+														// Source and Amount
+		try {
+			stmt = conn.createStatement();
+			stmt.execute("insert into " + expenseTable + " values (" + ExpenseID + ",'" + FirstName + "','" + LastName + "')");
 			stmt.close();
 			System.out.println("User created successfully");
 		} catch (SQLException sqlExcept) {
