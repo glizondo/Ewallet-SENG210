@@ -421,19 +421,19 @@ public class EWalletApplication {
 				            for (int i=1; i<=numberCols; i++)
 				            {
 				                //print Column Names
-				                System.out.print(rsmd.getColumnLabel(i)+"\t\t");  
+				               // System.out.print(rsmd.getColumnLabel(i)+"\t\t");  
 				            }
 
-				            System.out.println("\n-------------------------------------------------");
+				            //System.out.println("\n-------------------------------------------------");
 
 				            if(results.next())
 				            {
 				                String username = results.getString(2);
 				                String password = results.getString(3);
 				               
-				                System.out.println( username + "\t\t" + username + "\t\t" +password);
+				                //System.out.println( username + "\t\t" + username + "\t\t" +password);
 				                if (usernameField.getText().equals(username) && pwdField.getText().equals(password) ) {
-									System.out.println("it worked");
+									//System.out.println("it worked");
 									frameHint.setVisible(false);
 									JOptionPane.showMessageDialog(null, "You logged in!", "", JOptionPane.PLAIN_MESSAGE);
 									frameMainMenu.setVisible(true);
@@ -449,8 +449,9 @@ public class EWalletApplication {
 									frameHint.setVisible(true);
 									frameMainMenu.setVisible(false);
 									frameLogin.setVisible(false);
+									hintmsgLbl.setText("your hint is P10!");
 									frameHint.getContentPane().add(hintmsgLbl);
-									System.out.println(" nope");
+									
 									
 								}
 							}
@@ -489,7 +490,7 @@ public class EWalletApplication {
 				frameHint.setVisible(false);
 				frameMainMenu.setVisible(false);
 				frameLogin.setVisible(true);
-				hintmsgLbl.setText("Using your hint, try to log in again");
+				hintmsgLbl.setText("try to log in again");
 				frameLogin.getContentPane().add(hintmsgLbl);
 				msgLbl.setText("");
 				shutdown();
@@ -504,6 +505,7 @@ public class EWalletApplication {
 				frameHint.setVisible(true);
 				frameMainMenu.setVisible(false);
 				frameLogin.setVisible(false);
+				hintmsgLbl.setText("your hint is P10!");
 				frameHint.getContentPane().add(hintmsgLbl);
 				shutdown();
 			}
