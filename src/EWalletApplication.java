@@ -75,8 +75,8 @@ public class EWalletApplication {
 	private User user;
 	private JButton loadFileBtn;
 	// private static String dbURLembedded = "jdbc:derby:C:\\Users\\Guillermo\\eclipse-workspace\\Ewallet-SENG210\\DatabaseEwallet";
-	private static String dbURLembedded = "jdbc:derby:c:/Users/Ashley/git/Ewallet-SENG210/DatabaseEwallet";
-
+	//private static String dbURLembedded = "jdbc:derby:c:/Users/Ashley/git/Ewallet-SENG210/DatabaseEwallet";
+	private static String dbURLembedded = "jdbc:derby:C:\\Users\\Maddy\\eclipse-workspace\\Ewallet\\DatabaseEwallet";
 	private static String userTable = "USERS";
 	private static String wageTable = "WAGES";
 	private static Connection conn = null;
