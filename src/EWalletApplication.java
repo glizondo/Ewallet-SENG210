@@ -8,8 +8,12 @@ import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -69,25 +73,24 @@ public class EWalletApplication {
 	private JTextField textFieldCurrentBalance;
 	private JButton buttonConvertToDollars;
 	private JButton buttonConvertToEuros;
+	private JButton loadIncBtn;
 	private JLabel reportLbl;
 	private JButton detailIncReport;
 	private JButton detailExpReport;
+	private JButton ExpIncBtn;
 	private User user;
 	private JButton loadFileBtn;
 	// private static String dbURLembedded = "jdbc:derby:C:\\Users\\Guillermo\\eclipse-workspace\\Ewallet-SENG210\\DatabaseEwallet";
-	//private static String dbURLembedded = "jdbc:derby:c:/Users/Ashley/git/Ewallet-SENG210/DatabaseEwallet";
-<<<<<<< HEAD
-	private static String dbURLembedded = "jdbc:derby:C:\\Users\\Maddy\\eclipse-workspace\\EWallet\\Ewallet-SENG210\\DatabaseEwallet";
-	
-=======
-	private static String dbURLembedded = "jdbc:derby:C:\\Users\\Maddy\\eclipse-workspace\\Ewallet\\DatabaseEwallet";
->>>>>>> ed8fac11e0fbc40ede5d2ad573fe33cb25169277
+	private static String dbURLembedded = "jdbc:derby:c:/Users/Ashley/git/Ewallet-SENG210/DatabaseEwallet";
+	//private static String dbURLembedded = "jdbc:derby:C:\\Users\\Maddy\\eclipse-workspace\\EWallet\\Ewallet-SENG210\\DatabaseEwallet";
+	//private static String dbURLembedded = "jdbc:derby:C:\\Users\\Maddy\\eclipse-workspace\\Ewallet\\DatabaseEwallet";
 	private static String userTable = "USERS";
 	private static String wageTable = "WAGES";
 	private static String expenseTable = "EXPENSES";
 	private static Connection conn = null;
 	private static Statement stmt = null;
-
+	private static String s1 ="";
+	private static String s2 ="";
 	/**
 	 * Launch the application.
 	 */
@@ -238,6 +241,19 @@ public class EWalletApplication {
 		loadFileBtn.setFont(new Font("Perpetua", Font.PLAIN, 15));
 		loadFileBtn.setBounds(20, 195, 107, 31); // (20, 145, 107, 31);
 		frameMainMenu.getContentPane().add(loadFileBtn);
+
+		// add income to file button 
+		loadIncBtn = new JButton("add income to file");
+		loadIncBtn.setFont(new Font("Perpetua", Font.PLAIN, 12));
+		loadIncBtn.setBounds(20, 222, 122, 28); // (20, 145, 107, 31);
+		frameFiLoaded.getContentPane().add(loadIncBtn);
+		
+		// add expense to file button 
+		ExpIncBtn = new JButton("add expense to file");
+		ExpIncBtn.setFont(new Font("Perpetua", Font.PLAIN, 12));
+		ExpIncBtn.setBounds(327, 222, 122, 28); // (20, 145, 107, 31);
+		frameFiLoaded.getContentPane().add(ExpIncBtn);
+		
 
 		// creating the hintBtn //took from log in btn frame
 		hintBtn = new JButton("Forgot Log In?");
@@ -530,6 +546,39 @@ public class EWalletApplication {
 			}
 
 		});
+		//loadIncBtn is income load button 
+		//ExpIncBtn is load expense to 
+		// when ExpIncBtn is pressed do the following
+		ExpIncBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				createConnection();
+				frameFiLoaded.setVisible(true);
+				
+				
+			      FileWriter myWriter;
+				try {
+					File log = new File("Expenses.txt");
+					myWriter = new FileWriter(log,true);
+					BufferedWriter bufferedWriter = new BufferedWriter(myWriter);
+					bufferedWriter.write(s2);
+					bufferedWriter.close();
+					
+					myWriter.close();
+					 //PrintWriter out = new PrintWriter(new FileWriter(log, true));
+					 // out.close();
+					
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+			      System.out.println(" wrote to the file.");
+				frameFiLoaded.getContentPane().add(msgLbl);
+				
+				shutdown();
+			}
+
+		});
 		// when addExp is pressed do the following
 		loadFileBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -538,7 +587,6 @@ public class EWalletApplication {
 				JFileChooser openFileChooser = new JFileChooser();
 				openFileChooser.setCurrentDirectory(new File("c:\\Desktop"));
 				openFileChooser.setFileFilter(new FileNameExtensionFilter("TXT", "txt"));
-
 				int returnValue = openFileChooser.showOpenDialog(null);
 
 				if (returnValue == JFileChooser.APPROVE_OPTION) {
@@ -549,17 +597,16 @@ public class EWalletApplication {
 					frameFiLoaded.getContentPane().add(msgLbl);
 					try {
 						BufferedReader br = new BufferedReader(new FileReader(selectedFile));
-						String s1 = "", s2 = "";
 						while ((s1 = br.readLine()) != null) {
 							s2 += s1 + "\n";
 						}
-
 						msgLbl.setText("<html> File Loaded , Here is your expenses loaded : <html>" + s2);
 						br.close();
 
 					} catch (Exception ex) {
 						ex.printStackTrace();
 					}
+					
 				}
 
 				shutdown();
