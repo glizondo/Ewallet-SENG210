@@ -9,7 +9,7 @@ public class User {
 	String username;
 	String pwd;
 	// current total income - total
-	double balance;
+	Double balance;
 	// possible monthly savings, calculated using monthly income (most recent)
 	// assuming the data we have is for one year, and monthly and biweekly expenses,
 	// here you can assume yearly expenses that are recorded have already been paid.
@@ -21,7 +21,7 @@ public class User {
 		this.pwd = pwd;
 	}
 
-	public double getBalance() {
+	public Double getBalance() {
 		return balance;
 	}
 
@@ -55,5 +55,7 @@ public class User {
 		}
 		return true;
 	}
+	
+	
 
 }

@@ -210,7 +210,7 @@ public class ExpenseCalculator implements Expenser {
 
 	}
 
-	public void updateBalance() {
+	public double updateBalance() {
 		double spendingMonth = 0;
 		double incomeYear = 0;
 		try {
@@ -227,6 +227,7 @@ public class ExpenseCalculator implements Expenser {
 		}
 
 		user.balance = (incomeYear - spendingMonth);
+		return user.balance;
 	}
 
 	public void copyInfoToTextFiles() {

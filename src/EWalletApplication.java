@@ -80,17 +80,20 @@ public class EWalletApplication {
 	private JButton ExpIncBtn;
 	private User user;
 	private JButton loadFileBtn;
-	// private static String dbURLembedded = "jdbc:derby:C:\\Users\\Guillermo\\eclipse-workspace\\Ewallet-SENG210\\DatabaseEwallet";
-	private static String dbURLembedded = "jdbc:derby:c:/Users/Ashley/git/Ewallet-SENG210/DatabaseEwallet";
-	//private static String dbURLembedded = "jdbc:derby:C:\\Users\\Maddy\\eclipse-workspace\\EWallet\\Ewallet-SENG210\\DatabaseEwallet";
-	//private static String dbURLembedded = "jdbc:derby:C:\\Users\\Maddy\\eclipse-workspace\\Ewallet\\DatabaseEwallet";
+	private static String dbURLembedded = "jdbc:derby:C:\\Users\\Guillermo\\eclipse-workspace\\Ewallet-SENG210\\DatabaseEwallet";
+//	private static String dbURLembedded = "jdbc:derby:c:/Users/Ashley/git/Ewallet-SENG210/DatabaseEwallet";
+	// private static String dbURLembedded =
+	// "jdbc:derby:C:\\Users\\Maddy\\eclipse-workspace\\EWallet\\Ewallet-SENG210\\DatabaseEwallet";
+	// private static String dbURLembedded =
+	// "jdbc:derby:C:\\Users\\Maddy\\eclipse-workspace\\Ewallet\\DatabaseEwallet";
 	private static String userTable = "USERS";
 	private static String wageTable = "WAGES";
 	private static String expenseTable = "EXPENSES";
 	private static Connection conn = null;
 	private static Statement stmt = null;
-	private static String s1 ="";
-	private static String s2 ="";
+	private static String s1 = "";
+	private static String s2 = "";
+
 	/**
 	 * Launch the application.
 	 */
@@ -118,6 +121,8 @@ public class EWalletApplication {
 	 * Initialize the contents of the frameLogin.
 	 */
 	private void initialize() {
+
+		User user = new User("", "");
 
 		// frame for login with credentials. Closes after being logged in
 		frameLogin = new JFrame();
@@ -232,28 +237,23 @@ public class EWalletApplication {
 		goBackToLogin.setBounds(200, 219, 200, 31);
 		frameHint.getContentPane().add(goBackToLogin);
 
-		// creating the load file button
-		// loadFileBtn
-
-		// creating the load file button
 		// loadFileBtn
 		loadFileBtn = new JButton("Load File");
 		loadFileBtn.setFont(new Font("Perpetua", Font.PLAIN, 15));
 		loadFileBtn.setBounds(20, 195, 107, 31); // (20, 145, 107, 31);
 		frameMainMenu.getContentPane().add(loadFileBtn);
 
-		// add income to file button 
+		// add income to file button
 		loadIncBtn = new JButton("add income to file");
 		loadIncBtn.setFont(new Font("Perpetua", Font.PLAIN, 12));
 		loadIncBtn.setBounds(20, 222, 122, 28); // (20, 145, 107, 31);
 		frameFiLoaded.getContentPane().add(loadIncBtn);
-		
-		// add expense to file button 
+
+		// add expense to file button
 		ExpIncBtn = new JButton("add expense to file");
 		ExpIncBtn.setFont(new Font("Perpetua", Font.PLAIN, 12));
 		ExpIncBtn.setBounds(327, 222, 122, 28); // (20, 145, 107, 31);
 		frameFiLoaded.getContentPane().add(ExpIncBtn);
-		
 
 		// creating the hintBtn //took from log in btn frame
 		hintBtn = new JButton("Forgot Log In?");
@@ -269,7 +269,7 @@ public class EWalletApplication {
 
 		// creating the current balance field
 		textFieldCurrentBalance = new JTextField();
-		textFieldCurrentBalance.setEditable(true);
+		textFieldCurrentBalance.setEditable(false);
 		textFieldCurrentBalance.setBounds(224, 42, 107, 20);
 		frameMainMenu.getContentPane().add(textFieldCurrentBalance);
 		textFieldCurrentBalance.setColumns(10);
@@ -418,12 +418,6 @@ public class EWalletApplication {
 		expDetReportLabel.setVerticalAlignment(SwingConstants.TOP);
 		expDetReportLabel.setBounds(10, 170, 400, 100);
 
-//		Database connection
-		//createConnection();
-		//shutdown();
-
-//		insertNewUser(0000000003, "User03", "Password30!");
-
 		// when loginBtn is pressed do the following
 		loginBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -434,57 +428,63 @@ public class EWalletApplication {
 				if (user.checkValidPassword(pwdField.getText()) == true
 						&& user.checkRegexUsername(usernameField.getText()) == true) {
 					{
-						try        {
-				            stmt = conn.createStatement();
-				           // ResultSet results = stmt.executeQuery("SELECT * FROM APP.USERS " + "WHERE USERNAME = ' " + usernameField.getText() + "'");
-				            ResultSet results = stmt.executeQuery("select * from " + "USERS");
-				            ResultSetMetaData rsmd = results.getMetaData();
-				            int numberCols = rsmd.getColumnCount();
-				            for (int i=1; i<=numberCols; i++)
-				            {
-				                //print Column Names
-				                System.out.print(rsmd.getColumnLabel(i)+"\t\t");  
-				            }
+						try {
+							stmt = conn.createStatement();
+							// ResultSet results = stmt.executeQuery("SELECT * FROM APP.USERS " + "WHERE
+							// USERNAME = ' " + usernameField.getText() + "'");
+							ResultSet results = stmt.executeQuery("select * from " + "USERS");
+							ResultSetMetaData rsmd = results.getMetaData();
+							int numberCols = rsmd.getColumnCount();
+							for (int i = 1; i <= numberCols; i++) {
+								// print Column Names
+								System.out.print(rsmd.getColumnLabel(i) + "\t\t");
+							}
 
-				            System.out.println("\n-------------------------------------------------");
+							System.out.println("\n-------------------------------------------------");
 
-				            if(results.next())
-				            {
-				                String username = results.getString(2);
-				                String password = results.getString(3);
-				               
-				                System.out.println( username + "\t\t" + username + "\t\t" +password);
-				                if (usernameField.getText().equals(username) && pwdField.getText().equals(password) ) {
-									//System.out.println("it worked");
+							if (results.next()) {
+								String username = results.getString(2);
+								String password = results.getString(3);
+
+								System.out.println(username + "\t\t" + username + "\t\t" + password);
+								if (usernameField.getText().equals(username) && pwdField.getText().equals(password)) {
+									// System.out.println("it worked");
 									frameHint.setVisible(false);
-									JOptionPane.showMessageDialog(null, "You logged in!", "", JOptionPane.PLAIN_MESSAGE);
+									JOptionPane.showMessageDialog(null, "You logged in!", "",
+											JOptionPane.PLAIN_MESSAGE);
 									frameMainMenu.setVisible(true);
 									frameLogin.setVisible(false);
-									msgLbl.setText("Welcome " + usernameField.getText() + "! What would you like to do?");
+									msgLbl.setText(
+											"Welcome " + usernameField.getText() + "! What would you like to do?");
 									frameMainMenu.getContentPane().add(msgLbl);
 									CreateUser(usernameField.getText(), pwdField.getText());
 									expenseCalc = new ExpenseCalculator(AllData.get(AllData.size() - 1));
 									expenseCalc.copyInfoToArrayList();
 									expenseCalc.updateBalance();
 									expenseCalc.updateMonthlySavings();
-								} else if(!usernameField.getText().equals(username) || !pwdField.getText().equals(password) ) {
+									System.out.println("Update" + expenseCalc.updateBalance());
+									user.setBalance(expenseCalc.updateBalance());
+									System.out.println("Balance" + user.getBalance());
+									textFieldCurrentBalance.setText(Double.toString(expenseCalc.updateBalance()));
+									System.out.println(user.getBalance());
+
+								} else if (!usernameField.getText().equals(username)
+										|| !pwdField.getText().equals(password)) {
 									frameHint.setVisible(true);
 									frameMainMenu.setVisible(false);
 									frameLogin.setVisible(false);
 									hintmsgLbl.setText("your hint is P10!");
 									frameHint.getContentPane().add(hintmsgLbl);
-									
-									
+
 								}
 							}
-				            
-				            results.close();
-				           stmt.close();
-				        }
-						catch (SQLException e1) {
+
+							results.close();
+							stmt.close();
+						} catch (SQLException e1) {
 							e1.printStackTrace();
 						}
-					}					
+					}
 				}
 
 				else if (user.checkRegexUsername(usernameField.getText()) == false
@@ -501,9 +501,8 @@ public class EWalletApplication {
 							JOptionPane.PLAIN_MESSAGE);
 				}
 				shutdown();
-				}
-			
-		
+			}
+
 		});
 		// when goBackToLogin is clicked
 		goBackToLogin.addActionListener(new ActionListener() {
@@ -542,34 +541,38 @@ public class EWalletApplication {
 						"<html>Please add the source, amount and yearly frequency of your Expense. Or you can generate an expense report.<html>");
 				frameAddExpense.getContentPane().add(msgLbl);
 				expenseCalc = new ExpenseCalculator(AllData.get(AllData.size() - 1));
+				System.out.println("Update" + expenseCalc.updateBalance());
+				user.setBalance(expenseCalc.updateBalance());
+				System.out.println("Balance" + user.getBalance());
+				textFieldCurrentBalance.setText(Double.toString(expenseCalc.updateBalance()));
 				shutdown();
 			}
 
 		});
-		//loadIncBtn is income load button 
+		// loadIncBtn is income load button
 		// when loadIncBtn is pressed do the following
 		loadIncBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				createConnection();
 				frameFiLoaded.setVisible(false);
 				frameMainMenu.setVisible(true);
-				
-			      FileWriter myWriter;
+
+				FileWriter myWriter;
 				try {
 					File log = new File("Income.txt");
-					myWriter = new FileWriter(log,true);
+					myWriter = new FileWriter(log, true);
 					BufferedWriter bufferedWriter = new BufferedWriter(myWriter);
 					bufferedWriter.write(s2);
-					bufferedWriter.close();			
+					bufferedWriter.close();
 					myWriter.close();
-					
+
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-			    JOptionPane.showMessageDialog(null, "You saved to income!", "", JOptionPane.PLAIN_MESSAGE);
+				JOptionPane.showMessageDialog(null, "You saved to income!", "", JOptionPane.PLAIN_MESSAGE);
 				frameFiLoaded.getContentPane().add(msgLbl);
-				
+
 				shutdown();
 			}
 
@@ -581,23 +584,23 @@ public class EWalletApplication {
 				createConnection();
 				frameFiLoaded.setVisible(false);
 				frameMainMenu.setVisible(true);
-				
-			      FileWriter myWriter;
+
+				FileWriter myWriter;
 				try {
 					File log = new File("Expenses.txt");
-					myWriter = new FileWriter(log,true);
+					myWriter = new FileWriter(log, true);
 					BufferedWriter bufferedWriter = new BufferedWriter(myWriter);
 					bufferedWriter.write(s2);
-					bufferedWriter.close();			
+					bufferedWriter.close();
 					myWriter.close();
-					
+
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-			    JOptionPane.showMessageDialog(null, "You saved to expense!", "", JOptionPane.PLAIN_MESSAGE);
+				JOptionPane.showMessageDialog(null, "You saved to expense!", "", JOptionPane.PLAIN_MESSAGE);
 				frameFiLoaded.getContentPane().add(msgLbl);
-				
+
 				shutdown();
 			}
 
@@ -629,11 +632,11 @@ public class EWalletApplication {
 					} catch (Exception ex) {
 						ex.printStackTrace();
 					}
-					
+
 				}
 
 				shutdown();
-				}
+			}
 
 		});
 
@@ -648,9 +651,14 @@ public class EWalletApplication {
 				expenseCalc.updateMonthlySavings();
 				expenseCalc.updateBalance();
 				expenseCalc.copyInfoToTextFiles();
+				System.out.println("Update" + expenseCalc.updateBalance());
+				user.setBalance(expenseCalc.updateBalance());
+				System.out.println("Balance" + user.getBalance());
+				textFieldCurrentBalance.setText(Double.toString(expenseCalc.updateBalance()));
+				System.out.println(user.getBalance());
 
 				shutdown();
-				}
+			}
 
 		});
 
@@ -663,7 +671,7 @@ public class EWalletApplication {
 				frameExpReport.setVisible(true);
 				frameAddExpense.setVisible(false);
 				shutdown();
-				}
+			}
 		});
 
 		// when addInc is pressed do the following
@@ -675,8 +683,16 @@ public class EWalletApplication {
 						"<html>Please add the source (Salary, Rental Income, CashBack, Gift or Other) and amount of your income.<html>");
 				frameAddIncome.getContentPane().add(msgLbl);
 				expenseCalc = new ExpenseCalculator(AllData.get(AllData.size() - 1));
+//				Double d = expenseCalc.updateBalance();
+//				textFieldCurrentBalance.setText(Double.toString(d));
+//				textFieldCurrentBalance.app(Double.parseDouble(Double.toString(expenseCalc.updateBalance())));
+				System.out.println("Update" + expenseCalc.updateBalance());
+				user.setBalance(expenseCalc.updateBalance());
+				System.out.println("Balance" + user.getBalance());
+				textFieldCurrentBalance.setText(Double.toString(expenseCalc.updateBalance()));
+
 				shutdown();
-				}
+			}
 		});
 
 		// when detailIncReport is pressed do the following
@@ -684,7 +700,7 @@ public class EWalletApplication {
 			public void actionPerformed(ActionEvent e) {
 				createConnection();
 				FrameDetailIncReport.setVisible(true);
-				FrameDetailIncReport.add(IncDetReportLabel);
+				FrameDetailIncReport.getContentPane().add(IncDetReportLabel);
 				msgLbl.setText("<html>Please select the type of income your want to view. <html>");
 				FrameDetailIncReport.getContentPane().add(msgLbl);
 
@@ -695,8 +711,8 @@ public class EWalletApplication {
 				IncDropDown.setBounds(80, 50, 140, 20);
 				JButton IncReportDoneBtn = new JButton("Done");
 				IncReportDoneBtn.setBounds(100, 100, 90, 20);
-				FrameDetailIncReport.add(IncReportDoneBtn);
-				FrameDetailIncReport.add(IncDropDown);
+				FrameDetailIncReport.getContentPane().add(IncReportDoneBtn);
+				FrameDetailIncReport.getContentPane().add(IncDropDown);
 
 				// when detailed report is clicked
 				IncReportDoneBtn.addActionListener(new ActionListener() {
@@ -714,7 +730,7 @@ public class EWalletApplication {
 				expenseCalc.updateMonthlySavings();
 
 				shutdown();
-				}
+			}
 		});
 
 		// when incEnter is pressed do the following
@@ -728,8 +744,13 @@ public class EWalletApplication {
 				expenseCalc.updateBalance();
 				expenseCalc.updateMonthlySavings();
 				expenseCalc.copyInfoToTextFiles();
+				System.out.println("Update" + expenseCalc.updateBalance());
+				user.setBalance(expenseCalc.updateBalance());
+				System.out.println("Balance" + user.getBalance());
+				textFieldCurrentBalance.setText(Double.toString(expenseCalc.updateBalance()));
+				System.out.println(user.getBalance());
 				shutdown();
-				}
+			}
 		});
 
 		// when incReport is pressed do the following
@@ -798,7 +819,7 @@ public class EWalletApplication {
 			public void actionPerformed(ActionEvent e) {
 				createConnection();
 				FrameDetailExpReport.setVisible(true);
-				FrameDetailExpReport.add(expDetReportLabel);
+				FrameDetailExpReport.getContentPane().add(expDetReportLabel);
 				msgLbl.setText("<html>Please select the type of Expense you want to view. <html>");
 				FrameDetailExpReport.getContentPane().add(msgLbl);
 
@@ -809,8 +830,8 @@ public class EWalletApplication {
 				expDropDown.setBounds(80, 50, 140, 20);
 				JButton expReportDoneBtn = new JButton("Done");
 				expReportDoneBtn.setBounds(100, 100, 90, 20);
-				FrameDetailExpReport.add(expReportDoneBtn);
-				FrameDetailExpReport.add(expDropDown);
+				FrameDetailExpReport.getContentPane().add(expReportDoneBtn);
+				FrameDetailExpReport.getContentPane().add(expDropDown);
 
 				// when detailed report is clicked
 				expReportDoneBtn.addActionListener(new ActionListener() {
@@ -821,14 +842,15 @@ public class EWalletApplication {
 					}
 				});
 
-				shutdown();}
+				shutdown();
+			}
 		});
-		
+
 	}
 
 	// method to create user
 	public void CreateUser(String username, String password) {
-		
+
 		User newUser = new User(username, password);
 		AllData.add(newUser);
 	}
@@ -865,12 +887,13 @@ public class EWalletApplication {
 			sqlExcept.printStackTrace();
 		}
 	}
-	
+
 	private static void insertNewExpense(int ExpenseID, String FirstName, String LastName) {
-														// Source and Amount
+		// Source and Amount
 		try {
 			stmt = conn.createStatement();
-			stmt.execute("insert into " + expenseTable + " values (" + ExpenseID + ",'" + FirstName + "','" + LastName + "')");
+			stmt.execute("insert into " + expenseTable + " values (" + ExpenseID + ",'" + FirstName + "','" + LastName
+					+ "')");
 			stmt.close();
 			System.out.println("User created successfully");
 		} catch (SQLException sqlExcept) {
