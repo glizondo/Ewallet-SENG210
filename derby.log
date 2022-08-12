@@ -1,48 +1,48 @@
 ----------------------------------------------------------------
-Wed Aug 10 13:29:40 EDT 2022:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0182-88ce-084e-0000069800b0 
-on database directory C:\Users\Ashley\git\Ewallet-SENG210\DatabaseEwallet with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@b4c966a 
-Loaded from file:/C:/Users/Ashley/db-derby-10.14.2.0-bin/lib/derby.jar
+Wed Aug 10 12:04:56 EDT 2022:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0182-8880-7376-0000076f6f60 
+on database directory C:\Users\user\git\Ewallet-SENG210\DatabaseEwallet with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@b4c966a 
+Loaded from file:/C:/Users/user/Documents/derby%2010.14.2/db-derby-10.14.2.0-bin/lib/derby.jar
 java.vendor=Oracle Corporation
-java.runtime.version=17.0.1+12-LTS-39
-user.dir=C:\Users\Ashley\git\Ewallet-SENG210
+java.runtime.version=17+35-LTS-2724
+user.dir=C:\Users\user\git\Ewallet-SENG210
 os.name=Windows 10
 os.arch=amd64
 os.version=10.0
 derby.system.home=null
 Database Class Loader started - derby.database.classpath=''
 ----------------------------------------------------------------
-Wed Aug 10 13:29:41 EDT 2022:
-Shutting down instance a816c00e-0182-88ce-084e-0000069800b0 on database directory C:\Users\Ashley\git\Ewallet-SENG210\DatabaseEwallet with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@b4c966a 
+Wed Aug 10 12:04:58 EDT 2022:
+Shutting down instance a816c00e-0182-8880-7376-0000076f6f60 on database directory C:\Users\user\git\Ewallet-SENG210\DatabaseEwallet with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@b4c966a 
 ----------------------------------------------------------------
-Wed Aug 10 13:29:42 EDT 2022:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance 6302404f-0182-88ce-084e-0000069800b0 
-on database directory C:\Users\Ashley\git\Ewallet-SENG210\DatabaseEwallet with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@b4c966a 
-Loaded from file:/C:/Users/Ashley/db-derby-10.14.2.0-bin/lib/derby.jar
+Wed Aug 10 12:05:00 EDT 2022:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance 6302404f-0182-8880-7376-0000076f6f60 
+on database directory C:\Users\user\git\Ewallet-SENG210\DatabaseEwallet with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@b4c966a 
+Loaded from file:/C:/Users/user/Documents/derby%2010.14.2/db-derby-10.14.2.0-bin/lib/derby.jar
 java.vendor=Oracle Corporation
-java.runtime.version=17.0.1+12-LTS-39
-user.dir=C:\Users\Ashley\git\Ewallet-SENG210
+java.runtime.version=17+35-LTS-2724
+user.dir=C:\Users\user\git\Ewallet-SENG210
 os.name=Windows 10
 os.arch=amd64
 os.version=10.0
 derby.system.home=null
 Database Class Loader started - derby.database.classpath=''
 ----------------------------------------------------------------
-Wed Aug 10 13:29:52 EDT 2022:
-Shutting down instance 6302404f-0182-88ce-084e-0000069800b0 on database directory C:\Users\Ashley\git\Ewallet-SENG210\DatabaseEwallet with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@b4c966a 
+Wed Aug 10 12:05:01 EDT 2022:
+Shutting down instance 6302404f-0182-8880-7376-0000076f6f60 on database directory C:\Users\user\git\Ewallet-SENG210\DatabaseEwallet with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@b4c966a 
 ----------------------------------------------------------------
-Wed Aug 10 13:29:54 EDT 2022:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance c9a3808d-0182-88ce-084e-0000069800b0 
-on database directory C:\Users\Ashley\git\Ewallet-SENG210\DatabaseEwallet with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@b4c966a 
-Loaded from file:/C:/Users/Ashley/db-derby-10.14.2.0-bin/lib/derby.jar
+Wed Aug 10 12:05:13 EDT 2022:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance c9a3808d-0182-8880-7376-0000076f6f60 
+on database directory C:\Users\user\git\Ewallet-SENG210\DatabaseEwallet with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@b4c966a 
+Loaded from file:/C:/Users/user/Documents/derby%2010.14.2/db-derby-10.14.2.0-bin/lib/derby.jar
 java.vendor=Oracle Corporation
-java.runtime.version=17.0.1+12-LTS-39
-user.dir=C:\Users\Ashley\git\Ewallet-SENG210
+java.runtime.version=17+35-LTS-2724
+user.dir=C:\Users\user\git\Ewallet-SENG210
 os.name=Windows 10
 os.arch=amd64
 os.version=10.0
 derby.system.home=null
 Database Class Loader started - derby.database.classpath=''
 ----------------------------------------------------------------
-Wed Aug 10 13:29:56 EDT 2022:
-Shutting down instance c9a3808d-0182-88ce-084e-0000069800b0 on database directory C:\Users\Ashley\git\Ewallet-SENG210\DatabaseEwallet with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@b4c966a 
+Wed Aug 10 12:05:14 EDT 2022:
+Shutting down instance c9a3808d-0182-8880-7376-0000076f6f60 on database directory C:\Users\user\git\Ewallet-SENG210\DatabaseEwallet with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@b4c966a 
